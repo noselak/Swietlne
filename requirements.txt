@@ -5,3 +5,4 @@ django-crispy-forms==1.6.1
 gunicorn==19.7.1
 olefile==0.44
 psycopg2==2.7.1
+whitenoise==3.3.0
