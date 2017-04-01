@@ -1,0 +1,1 @@
+web: gunicorn swietlny.wsgi --log-file -
