@@ -27,6 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'swietlne@gmail.com' #my gmail username
+EMAIL_HOST_PASSWORD = 'sypLOdfms' #my gmail password
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "Bozena <swietlne@gmail.com>"
+
+ADMINS = [('noselak', EMAIL_HOST_USER)]
+MANAGERS = ADMINS
 
 # Application definition
 
