@@ -25,7 +25,7 @@ SECRET_KEY = '!itzn8-7jw1@mk%q*)pumcc2hdm5ktq$ur9p)p99!cmb3npuuj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['swietlny.herokuapp.com']
+ALLOWED_HOSTS = ['swietlne.herokuapp.com']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'swietlne@gmail.com' #my gmail username
