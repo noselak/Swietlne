@@ -1,5 +1,6 @@
 <!-- *** TOPBAR ***
  _________________________________________________________ -->
+{% load staticfiles %}
 <div id="top">
     <div class="container">
         <div class="col-md-12" data-animate="fadeInDown">
@@ -57,8 +58,8 @@
         <div class="navbar-header">
 
             <a class="navbar-brand home" href="index.html" data-animate-hover="bounce">
-                <img src="img/logo.png" alt="Obaju logo" class="hidden-xs">
-                <img src="img/logo-small.png" alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
+                <img src="{% static 'img/logo_s_G1.png' %}" alt="Swietlne logo" class="hidden-xs">
+                <img src="{% static 'img/logo_xs_G1.png' %}" alt="Swietlne logo" class="visible-xs"><span class="sr-only">Swietlne</span>
             </a>
             <div class="navbar-buttons">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
