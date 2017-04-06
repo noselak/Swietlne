@@ -1,18 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.contrib. messages.views import SuccessMessageMixin
 
 from .forms import JoinForm
 
 class HomeView(View):
     form = JoinForm
+    template = 'news/home.html'
 
     def get(self, request):
         form = self.form(None)
-        template = 'news/home.html'
         context = {
             'form':form
         }
-        return render(request, template, context)
+        return render(request, self.template, context)
         
     def post(self, request):
         form = self.form(request.POST)
@@ -23,8 +24,7 @@ class HomeView(View):
             instance.save()
             form = self.form()
         
-        template = 'news/home.html'
         context = {
             'form':form
         }
-        return render(request, template, context)
+        return render(request, self.template, context)
