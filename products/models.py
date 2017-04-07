@@ -26,6 +26,8 @@ class Product(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=20)
     active = models.BooleanField(default=True)
     is_new = models.BooleanField(default=False)
+    on_sale = models.BooleanField(default=False)
+    best_buy = models.BooleanField(default=False)
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     

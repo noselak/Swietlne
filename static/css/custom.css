@@ -3,3 +3,12 @@
   background-color: #ffbd77;
   color: #555555;
 }
+
+.input-group-btn > .btn-news {
+  min-height: 34px;
+}
+
+.owl-theme .owl-controls .owl-page span {
+  opacity: 0.8;
+  background: #555555;
+}

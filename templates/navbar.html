@@ -58,8 +58,8 @@
         <div class="navbar-header">
 
             <a class="navbar-brand home" href="index.html" data-animate-hover="bounce">
-                <img src="{% static 'img/logo_s_G1.png' %}" alt="Swietlne logo" class="hidden-xs">
-                <img src="{% static 'img/logo_xs_G1.png' %}" alt="Swietlne logo" class="visible-xs"><span class="sr-only">Swietlne</span>
+                <img src="{% static 'img/logo_s_G3.png' %}" alt="Swietlne logo" class="hidden-xs">
+                <img src="{% static 'img/logo_s_G3.png' %}" alt="Swietlne logo" class="visible-xs"><span class="sr-only">Swietlne</span>
             </a>
             <div class="navbar-buttons">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -71,7 +71,7 @@
                         <i class="fa fa-search"></i>
                     </button>
                 <a class="btn btn-default navbar-toggle" href="basket.html">
-                    <i class="fa fa-shopping-cart"></i> <span class="hidden-xs">3 items in cart</span>
+                    <i class="fa fa-shopping-cart"></i> <span class="hidden-xs">Koszyk: 3</span>
                 </a>
             </div>
         </div>
@@ -89,14 +89,10 @@
                                     <div class="col-sm-6">
                                         <h5>Kategorie</h5>
                                         <ul>
-                                            <li><a href="category.html">T-shirts</a>
+                                            {% for category in categories %}
+                                            <li><a href="category.html">{{category.title}}</a>
                                             </li>
-                                            <li><a href="category.html">Shirts</a>
-                                            </li>
-                                            <li><a href="category.html">Pants</a>
-                                            </li>
-                                            <li><a href="category.html">Accessories</a>
-                                            </li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                     <div class="col-sm-6">
@@ -124,7 +120,7 @@
         <div class="navbar-buttons">
 
             <div class="navbar-collapse collapse right" id="basket-overview">
-                <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">3 items in cart</span></a>
+                <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">Koszyk: 3</span></a>
             </div>
             <!--/.nav-collapse -->
 
@@ -141,7 +137,7 @@
 
             <form class="navbar-form" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Szukaj na stronie">
                     <span class="input-group-btn">
 
 			<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
