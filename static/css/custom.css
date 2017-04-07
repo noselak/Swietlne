@@ -1,0 +1,5 @@
+.nav > li.navitem > a:hover,
+.nav > li.navitem > a:focus {
+  background-color: #ffbd77;
+  color: #555555;
+}
