@@ -332,7 +332,7 @@ h1 {
   top: 100%;
   border-width: 5px 10px;
   border-style: solid;
-  border-color: #2d7b6b #2d7b6b transparent transparent;
+  border-color: #ffa84c #ffa84c transparent transparent;
 }
 .ribbon.sale {
   top: 0;
@@ -341,11 +341,11 @@ h1 {
   top: 50px;
 }
 .ribbon.new .theribbon {
-  background-color: #5bc0de;
+  background-color: #90b29d;
   text-shadow: 0px 1px 2px #bbb;
 }
 .ribbon.new .theribbon:after {
-  border-color: #2390b0 #2390b0 transparent transparent;
+  border-color: #7d9b89 #7d9b89 transparent transparent;
 }
 .ribbon.gift {
   top: 100px;

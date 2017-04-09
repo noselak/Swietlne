@@ -25,10 +25,10 @@
                 <div class="modal-body">
                     <form action="customer-orders.html" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="email-modal" placeholder="email">
+                            <input type="text" class="form-control" id="email-modal" placeholder="E-mail">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password-modal" placeholder="password">
+                            <input type="password" class="form-control" id="password-modal" placeholder="Hasło">
                         </div>
 
                         <p class="text-center">
@@ -90,7 +90,7 @@
                                         <h5>Kategorie</h5>
                                         <ul>
                                             {% for category in categories %}
-                                            <li><a href="category.html">{{category.title}}</a>
+                                            <li><a href="{% url 'products:category_view' category_slug=category.slug %}">{{category.title}}</a>
                                             </li>
                                             {% endfor %}
                                         </ul>

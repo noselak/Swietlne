@@ -14,9 +14,9 @@ class Category(models.Model):
         return self.title
         
 
-class ProductManager(models.Manager):
-    def all(self, *args, **kwargs):
-        return super(ProductManager, self).filter(active=True)
+class ActiveProductManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return super(ActiveProductManager, self).get_queryset().filter(active=True)
   
   
 # Products
@@ -31,13 +31,18 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
-    objects = ProductManager()
+    active_objects =  ActiveProductManager()
     
     class Meta:
         ordering = ["-title"]
     
     def __str__(self):
         return self.title
+    
+    @property    
+    def images(self):
+        images = ProductImage.objects.filter(product=self)
+        return images
         
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

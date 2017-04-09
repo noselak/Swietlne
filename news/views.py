@@ -1,27 +1,25 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.contrib. messages.views import SuccessMessageMixin
 
 from .forms import JoinForm
-from products.models import Category
+from products.models import Category, Product
 
 class HomeView(View):
     form = JoinForm
     template = 'news/home.html'
-    
 
     def get(self, request):
         form = self.form(None)
-        categories = Category.objects.all()
+        best_buy_products = Product.active_objects.filter(best_buy=True)
         context = {
             'form':form,
-            'categories': categories
+            'products': best_buy_products,
         }
         return render(request, self.template, context)
         
     def post(self, request):
-        categories = Category.objects.all()
         form = self.form(request.POST)
+        best_buy_products = Product.active_objects.filter(best_buy=True)
         if form.is_valid():
             instance = form.save(commit=False)
             email = form.cleaned_data.get('email')
@@ -31,6 +29,6 @@ class HomeView(View):
         
         context = {
             'form':form,
-            'categories': categories
+            'products': best_buy_products,
         }
         return render(request, self.template, context)
