@@ -12,3 +12,8 @@
   opacity: 0.8;
   background: #555555;
 }
+
+.products-number span,
+.products-number .btn-primary {
+  margin-left: 10px;
+}

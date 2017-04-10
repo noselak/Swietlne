@@ -10,16 +10,23 @@ class Category(models.Model):
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
+    objects = models.Manager()
+    
     def __str__(self):
         return self.title
+    
+    @property
+    def products_count(self):
+        products = Product.active_objects.filter(categories=self)
+        return len(products)
         
-
+        
+# Products
 class ActiveProductManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return super(ActiveProductManager, self).get_queryset().filter(active=True)
   
-  
-# Products
+
 class Product(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(blank=True, null=True)
@@ -31,10 +38,11 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
+    objects = models.Manager()
     active_objects =  ActiveProductManager()
     
     class Meta:
-        ordering = ["-title"]
+        ordering = ["title"]
     
     def __str__(self):
         return self.title
@@ -47,6 +55,8 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField()
+    
+    objects = models.Manager()
     
     def __str__(self):
         return self.product.title
