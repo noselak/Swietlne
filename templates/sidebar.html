@@ -1,0 +1,28 @@
+{% load staticfiles %}
+            <!-- *** MENUS AND FILTERS ***
+ _________________________________________________________ -->
+            <div class="panel panel-default sidebar-menu">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Kategorie</h3>
+                </div>
+
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked category-menu">
+                        {% for category in categories %}
+                        <li class="{% if category.slug in request.path %}active{% endif %}">
+                            <a href="{% url 'products:category_view' category_slug=category.slug %}">{{category.title}} <span class="badge pull-right">{{category.products_count}}</span></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- *** MENUS AND FILTERS END *** -->
+
+            <div class="banner hidden-sm hidden-xs">
+                <a href="#">
+                    <img src="{% static 'products/img/needle.jpg' %}" alt="sales 2017" class="img-responsive">
+                </a>
+            </div>

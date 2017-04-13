@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<!-- *** PAGES MENU ***
+ _________________________________________________________ -->
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Nawigacja</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="{% if 'regulamin' in request.path %}active{% endif %}">
+                <a href="text.html">Regulamin</a>
+            </li>
+            <li class="{% if 'kontakt' in request.path %}active{% endif %}">
+                <a href="{% url 'news:contact' %}">Kontakt</a>
+            </li>
+            <li class="{% if 'faq' in request.path %}active{% endif %}">
+                <a href="{% url 'news:faq' %}">FAQ</a>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+<!-- *** PAGES MENU END *** -->
+
+
+<div class="banner hidden-sm hidden-xs">
+    <a href="#">
+        <img src="{% static 'products/img/needle.jpg' %}" alt="sales 2017" class="img-responsive">
+    </a>
+</div>

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block head_title %}Sklep{% endblock %} {% block content %} {% load staticfiles %}
+{% extends "base.html" %} {% block head_title %}Sklep - {{category.title}}{% endblock %} {% block content %} {% load staticfiles %}
 
 <div id="content">
     <div class="container">
@@ -12,33 +12,7 @@
         </div>
 
         <div class="col-md-3">
-            <!-- *** MENUS AND FILTERS ***
- _________________________________________________________ -->
-            <div class="panel panel-default sidebar-menu">
-
-                <div class="panel-heading">
-                    <h3 class="panel-title">Kategorie</h3>
-                </div>
-
-                <div class="panel-body">
-                    <ul class="nav nav-pills nav-stacked category-menu">
-                        {% for category in categories %}
-                        <li class="{% if category.slug in request.path %}active{% endif %}">
-                            <a href="{% url 'products:category_view' category_slug=category.slug %}">{{category.title}} <span class="badge pull-right">{{category.products_count}}</span></a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                </div>
-            </div>
-
-            <!-- *** MENUS AND FILTERS END *** -->
-
-            <div class="banner hidden-sm hidden-xs">
-                <a href="#">
-                    <img src="{% static 'img/needle.jpg' %}" alt="sales 2017" class="img-responsive">
-                </a>
-            </div>
+            {% include 'sidebar.html' %}
         </div>
 
         <div class="col-md-9">
@@ -96,25 +70,25 @@
                         <div class="flip-container">
                             <div class="flipper">
                                 <div class="front">
-                                    <a href="detail.html">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
                                         <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="back">
-                                    <a href="detail.html">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
                                         <img src="{{product.images.1.image.url}}" alt="" class="img-responsive">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <a href="detail.html" class="invisible">
+                        <a href="{% url 'products:product_view' pk=product.pk %}" class="invisible">
                             <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
                         </a>
                         <div class="text">
                             <h3><a href="detail.html">{{product.title}}</a></h3>
                             <p class="price">{{product.price}} zł</p>
                             <p class="buttons">
-                                <a href="detail.html" class="btn btn-default btn-md">Szczegóły</a>
+                                <a href="{% url 'products:product_view' pk=product.pk %}" class="btn btn-default btn-md">Szczegóły</a>
                                 <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
                             </p>
                         </div>

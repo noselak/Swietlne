@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block head_title %}Kontakt{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona główna</a>
+                </li>
+                <li>FAQ</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            {% include 'sidebar-sm.html' %}
+        </div>
+
+        <div class="col-md-9">
+
+
+            <div class="box" id="contact">
+                <h1>FAQ - najczęściej zadawane pytania</h1>
+
+                <p class="lead">Are you curious about something? Do you have some kind of problem with our products?</p>
+                <p>Please feel free to contact us, our customer service center is working for you 24/7.</p>
+
+                <hr>
+
+                <div class="panel-group" id="accordion">
+                    
+                    {% for topic in faq %}    
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+
+                                <a data-toggle="collapse" data-parent="#accordion" href="#faq{{forloop.counter}}">
+
+						{{forloop.counter}}. {{topic.question}}
+
+					    </a>
+
+                            </h4>
+                        </div>
+                        <div id="faq{{forloop.counter}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>{{topic.answer}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                    {% endfor %}
+
+                </div>
+                <!-- /.panel-group -->
+
+
+            </div>
+
+
+        </div>
+        <!-- /.col-md-9 -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

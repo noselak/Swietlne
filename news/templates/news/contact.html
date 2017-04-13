@@ -1,0 +1,126 @@
+{% extends "base.html" %} 
+{% block head_title %}Kontakt{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Kontakt</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            {% include 'sidebar-sm.html' %}
+        </div>
+
+        <div class="col-md-9">
+
+
+            <div class="box" id="contact">
+                <h1>Kontakt</h1>
+
+                <p class="lead">Chcesz się z nami podzielić swoimi przemyśleniami o naszych produktach? Masz pomysł na oryginalny produkt?</p>
+                <p>Napisz lub zadzwoń do nas! </p>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3><i class="fa fa-map-marker"></i> Siedziba firmy</h3>
+                        <p>ul. Komorowicza
+                            <br>Czempiń
+                            <br>64-020
+                            <br>Wielkoposka
+                            <br>
+                            <strong>Polska</strong>
+                        </p>
+                    </div>
+                    <!-- /.col-sm-4 -->
+                    <div class="col-sm-4">
+                        <h3><i class="fa fa-phone"></i> Telefon</h3>
+                        <p class="text-muted">Numer jest czynny w godzinach 9-17 od poniedziałku do piątku.</p>
+                        <p><strong>+33 555 444 333</strong>
+                        </p>
+                    </div>
+                    <!-- /.col-sm-4 -->
+                    <div class="col-sm-4">
+                        <h3><i class="fa fa-envelope"></i> E-mail</h3>
+                        <p class="text-muted">Na e-maile odpisujemy tak szybko, jak jest to możliwe.</p>
+                        <ul>
+                            <li><strong><a href="mailto:">info@fakeemail.com</a></strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.col-sm-4 -->
+                </div>
+                <!-- /.row -->
+
+                <hr>
+
+                <h2>Formularz kontaktowy</h2>
+
+                <form method="POST">
+                {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.first_name.errors }}
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.last_name.errors }}
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.email.errors }}
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.subject.errors }}
+                                {{ form.subject.label_tag }}
+                                {{ form.subject }}
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                {{ form.message.errors }}
+                                {{ form.message.label_tag }}
+                                {{ form.message }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Wyślij wiadomość</button>
+
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </form>
+
+
+            </div>
+
+
+        </div>
+        <!-- /.col-md-9 -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

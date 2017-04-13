@@ -1,3 +1,5 @@
+/*nav & home*/
+
 .nav > li.navitem > a:hover,
 .nav > li.navitem > a:focus {
   background-color: #ffbd77;
@@ -13,7 +15,41 @@
   background: #555555;
 }
 
+/* products*/
+
 .products-number span,
 .products-number .btn-primary {
   margin-left: 10px;
+}
+
+/*messages*/
+
+.success {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+/*faq*/
+
+.panel-heading > .panel-title > a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+.panel-heading > .panel-title > a:hover {
+    text-decoration: underline;
 }

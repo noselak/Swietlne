@@ -11,15 +11,28 @@
     <meta name="author" content="Adrian Dworanowski">
 
     <title>ŚWIETLNE - {% block head_title %}{% endblock %}</title>
-    
+
     {% include 'css.html' %}
 </head>
 
 <body>
     {% include 'navbar.html' %}
     <div class="all">
-    {% block content %} {% endblock %}
-    {% include 'footer.html' %}
+        
+        {% if messages %} 
+        <div class="container">
+            <div class="col-md-12">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %} 
+            </div>
+        </div>
+        {% endif %} 
+        
+        {% block content %} 
+        {% endblock %} 
+            
+        {% include 'footer.html' %}
     </div>
     {% include 'javascript.html' %}
 </body>

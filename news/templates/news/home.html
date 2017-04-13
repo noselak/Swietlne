@@ -7,16 +7,16 @@
         <div class="col-md-12">
             <div id="main-slider">
                 <div class="item">
-                    <img src="{% static 'img/slider1.jpg' %}" alt="" class="img-responsive">
+                    <img class="img-responsive" src="{% static 'news/img/slider1.jpg' %}" alt="" >
                 </div>
                 <div class="item">
-                    <img class="img-responsive" src="{% static 'img/slider2.jpg' %}" alt="">
+                    <img class="img-responsive" src="{% static 'news/img/slider2.jpg' %}" alt="">
                 </div>
                 <div class="item">
-                    <img class="img-responsive" src="{% static 'img/slider3.jpg' %}" alt="">
+                    <img class="img-responsive" src="{% static 'news/img/slider3.jpg' %}" alt="">
                 </div>
                 <div class="item">
-                    <img class="img-responsive" src="{% static 'img/slider4.jpg' %}" alt="">
+                    <img class="img-responsive" src="{% static 'news/img/slider4.jpg' %}" alt="">
                 </div>
             </div>
             <!-- /#main-slider -->
@@ -43,18 +43,18 @@
                         <div class="flip-container">
                             <div class="flipper">
                                 <div class="front">
-                                    <a href="detail.html">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
                                         <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="back">
-                                    <a href="detail.html">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
                                         <img src="{{product.images.1.image.url}}" alt="" class="img-responsive">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <a href="detail.html" class="invisible">
+                        <a href="{% url 'products:product_view' pk=product.pk %}" class="invisible">
                             <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
                         </a>
                         <div class="text">

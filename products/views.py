@@ -36,3 +36,15 @@ class CategoryView(View):
             'display_count': display_count,
         }
         return render(request, self.template, context)
+       
+        
+class ProductView(View):
+    template = 'products/product.html'
+    
+    def get(self, request, pk):
+        product = Product.active_objects.get(pk=pk)
+        context = {
+            'product': product,
+        }
+        return render(request, self.template, context)
+        

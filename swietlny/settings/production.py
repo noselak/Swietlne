@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['swietlne.herokuapp.com']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'swietlne@gmail.com' #my gmail username
-EMAIL_HOST_PASSWORD = '' #my gmail password
+EMAIL_HOST_PASSWORD = 'sypLOdfms'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Bozena <swietlne@gmail.com>"
@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'news.context_processors.categories',
+                'news.context_processors.news_form',
             ],
         },
     },
@@ -131,6 +132,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # Static files (CSS, JavaScript, Images)
