@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'django_cleanup',
     'news',
     'products',
+    'users',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'news.context_processors.categories',
                 'news.context_processors.news_form',
+                'users.context_processors.login_form',
             ],
         },
     },
@@ -155,3 +158,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
+
+

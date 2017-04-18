@@ -8,5 +8,5 @@ def categories(request):
 def news_form(request):
     form = JoinForm(request.POST or None)
     return {
-        'form': form,
+        'join_form': form,
     }

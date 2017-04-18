@@ -10,9 +10,9 @@
                 <ul>
                     <li><a href="text.html">Regulamin</a>
                     </li>
-                    <li><a href="faq.html">FAQ</a>
+                    <li><a href="{% url 'news:faq' %}">FAQ</a>
                     </li>
-                    <li><a href="contact.html">Kontakt</a>
+                    <li><a href="{% url 'news:contact' %}">Kontakt</a>
                     </li>
                 </ul>
 
@@ -23,7 +23,7 @@
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Logowanie</a>
                     </li>
-                    <li><a href="register.html">Rejestracja</a>
+                    <li><a href="{% url 'users:register' %}">Rejestracja</a>
                     </li>
                     <li><a href="register.html">Moje konto</a>
                     </li>
@@ -65,6 +65,7 @@
                 <h4>Nasze pracownie:</h4>
 
                 <p><strong>Czempiń</strong>
+                    <br>64-020
                     <br>Wielkopolska
                 </p>
 
@@ -85,7 +86,7 @@
                     {% csrf_token %}
                     <div class="input-group">
 
-                        {{ form.email }}
+                        {{ join_form.email }}
 
                         <span class="input-group-btn">
 

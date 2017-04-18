@@ -1,0 +1,87 @@
+{% extends "base.html" %} 
+{% block head_title %}Rejestracja / Logowanie{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+        <div id="content">
+            <div class="container">
+
+                <div class="col-md-12">
+
+                    <ul class="breadcrumb">
+                        <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                        </li>
+                        <li>Rejestracja / Logowanie</li>
+                    </ul>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box">
+                        <h1>Nowe konto</h1>
+
+                        <p class="lead">Nie masz swojego konta?</p>
+                        <p>Rejestracja jest prosta, szybka i pozwala śledzić status swoich zamówień.</p>
+                        <p class="text-muted">Jeśli masz jakiekolwiek pytania, <a href="{% url 'news:contact' %}">skontaktuj się z nami</a>. Nasza pracownia odpowie najszybciej, jak jest to możliwe.</p>
+
+                        <hr>
+
+                        <form action="customer-orders.html" method="post">
+                            {% csrf_token %}
+                            {% for field in user_form %}
+                            <div class="form-group">
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                            {% for field in user_profile_form %}
+                            <div class="form-group">
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i> Rejestracja</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box">
+                        <h1>Logowanie</h1>
+
+                        <p class="lead">Masz już swoje konto?</p>
+                        <p class="text-muted">Zaloguj się, aby składać zamówienia oraz sprawdzać ich stan.</p>
+
+                        <hr>
+
+                        <form method="post" action="{% url 'users:login' %}">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                <p class="error">Niepoprawne hasło lub nazwa użytkownika.</p>
+                            {% endif %}
+                            <div class="form-group">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label_tag }}
+                                {{ form.password }}
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Logowanie</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#content -->
+
+{% endblock %}

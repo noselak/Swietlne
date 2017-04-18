@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'', include('news.urls', namespace="news")),
     url(r'^produkty/', include('products.urls', namespace="products")),
+    url(r'^uzytkownicy/', include('users.urls', namespace="users")),
     url(r'^admin/', admin.site.urls),
 ]
 

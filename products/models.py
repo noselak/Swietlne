@@ -12,6 +12,10 @@ class Category(models.Model):
     
     objects = models.Manager()
     
+    class Meta:
+        verbose_name = 'Kategoria'
+        verbose_name_plural = 'Kategorie'
+    
     def __str__(self):
         return self.title
     
@@ -45,6 +49,8 @@ class Product(models.Model):
     
     class Meta:
         ordering = ["title"]
+        verbose_name = 'Produkt'
+        verbose_name_plural = 'Produkty'
     
     def __str__(self):
         return self.title
@@ -59,6 +65,10 @@ class ProductImage(models.Model):
     image = models.ImageField()
     
     objects = models.Manager()
+    
+    class Meta:
+        verbose_name = 'Zdjęcie produktu'
+        verbose_name_plural = 'Zdjęcia produktów'
     
     def __str__(self):
         return self.product.title

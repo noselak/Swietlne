@@ -5,12 +5,18 @@
     <div class="container">
         <div class="col-md-12" data-animate="fadeInDown">
             <ul class="menu">
+                {% if user.is_anonymous %}
                 <li><a href="#" data-toggle="modal" data-target="#login-modal">Logowanie</a>
                 </li>
-                <li><a href="register.html">Rejestracja</a>
+                <li><a href="{% url 'users:register' %}">Rejestracja</a>
                 </li>
-                <li><a href="contact.html">Moje konto</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li><a href="contact.html">Aktywny użytkownik: {{ request.user.username }}</a>
                 </li>
+                <li><a href="{% url 'users:logout' %}?next={{request.path}}">Wyloguj</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -23,12 +29,18 @@
                     <h4 class="modal-title" id="Login">Logowanie</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="customer-orders.html" method="post">
+                    <form action="{% url 'users:login' %}?next={{request.path}}" method="post">
+                    {% csrf_token %}
+                        {% if form.errors %}
+                            <p class="error">Niepoprawne hasło lub nazwa użytkownika.</p>
+                        {% endif %}
                         <div class="form-group">
-                            <input type="text" class="form-control" id="email-modal" placeholder="E-mail">
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password-modal" placeholder="Hasło">
+                            {{ form.password.label_tag }}
+                            {{ form.password }}
                         </div>
 
                         <p class="text-center">
@@ -38,7 +50,7 @@
                     </form>
 
                     <p class="text-center text-muted">Nie masz swojego konta?</p>
-                    <p class="text-center text-muted"><a href="register.html"><strong>Zarejestruj się</strong></a>! 
+                    <p class="text-center text-muted"><a href="{% url 'users:register' %}"><strong>Zarejestruj się</strong></a>! 
                     <br>Rejestracja jest prosta, szybka i pozwala śledzić status swoich zamówień.</p>
 
                 </div>
@@ -110,7 +122,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="navitem"><a href="{% url 'news:faq' %}">FAQ</a></li>
                 <li class="navitem"><a href="{% url 'news:contact' %}">Kontakt</a></li>
             </ul>
 

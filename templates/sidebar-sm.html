@@ -13,13 +13,12 @@
             <li class="{% if 'regulamin' in request.path %}active{% endif %}">
                 <a href="text.html">Regulamin</a>
             </li>
-            <li class="{% if 'kontakt' in request.path %}active{% endif %}">
-                <a href="{% url 'news:contact' %}">Kontakt</a>
-            </li>
             <li class="{% if 'faq' in request.path %}active{% endif %}">
                 <a href="{% url 'news:faq' %}">FAQ</a>
             </li>
-
+            <li class="{% if 'kontakt' in request.path %}active{% endif %}">
+                <a href="{% url 'news:contact' %}">Kontakt</a>
+            </li>
         </ul>
 
     </div>
