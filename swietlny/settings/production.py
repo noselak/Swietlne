@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['swietlne.herokuapp.com']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'swietlne@gmail.com' #my gmail username
-EMAIL_HOST_PASSWORD = 'sypLOdfms'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Bozena <swietlne@gmail.com>"

@@ -1,0 +1,85 @@
+{% extends "base.html" %} 
+{% block head_title %}Moje konto{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Moje konto</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+ _________________________________________________________ -->
+            {% include 'sidebar-account.html' %}
+
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <div class="col-md-9">
+            <div class="box">
+                <h1>Konto użytkownika</h1>
+                <p class="lead">Na tej stronie możesz uaktualnić swoje dane oraz zmienić hasło dostępu.</p>
+                <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <h3>Zmiana hasła</h3>
+
+                <form method="POST" action="{% url 'users:password_change' %}">
+                    {% csrf_token %}
+                    {% for message in messages %}
+                        {% if "password" in message.tags %}
+                             <p {% if message.tags %} class="{{message.tags}}" {% endif %}> {{ message }} </p>
+                        {% endif %} 
+                    {% endfor %}
+                    <div class="row">
+                    {% for field in user_password_form %} 
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Zapisz hasło</button>
+                    </div>
+                </form>
+
+                <hr>
+
+                <h3>Dane użytkownika</h3>
+                <form method="POST" action="{% url 'users:profile' %}">
+                    {% csrf_token %}
+                    {% for field in user_profile_form %}
+                        <div class="form-group">
+                            {{ field.errors }}
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Zapisz zmiany</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

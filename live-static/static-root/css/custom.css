@@ -47,9 +47,14 @@
 /*faq*/
 
 .panel-heading > .panel-title > a:focus {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 .panel-heading > .panel-title > a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.errorlist {
+  list-style-type: none;
+  padding: 0px;
 }

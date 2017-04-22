@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 
 # Category
@@ -25,7 +26,7 @@ class Category(models.Model):
         return len(products)
         
         
-# Products
+# Product
 class ActiveProductManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return super(ActiveProductManager, self).get_queryset().filter(active=True)
@@ -41,6 +42,7 @@ class Product(models.Model):
     is_new = models.BooleanField(default=False)
     on_sale = models.BooleanField(default=False)
     best_buy = models.BooleanField(default=False)
+    wislist = models.ManyToManyField(User)
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     

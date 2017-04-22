@@ -9,11 +9,9 @@ class UserProfile(models.Model):
     address = models.CharField(null=True, blank=True, max_length=70)
     phone = models.CharField(null=True, blank=True, max_length=15)
     
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
+    class Meta:
+        verbose_name = 'Profil użytkownika'
+        verbose_name_plural = 'Profile użytkowników'
+    
+    def __str__(self):
+        return self.user.username

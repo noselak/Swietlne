@@ -47,4 +47,11 @@ class ProductView(View):
             'product': product,
         }
         return render(request, self.template, context)
+    
+        
+class SearchView(View):
+    template = 'products/category.html'
+    
+    def get(self, request):
+        pass
         

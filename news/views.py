@@ -27,10 +27,10 @@ class HomeView(View):
             email = form.cleaned_data.get('email')
             instance.email = email
             instance.save()
-            messages.success(request, 'Dziękujemy! Zapisaliśmy Twój e-mail.')
+            messages.success(request, 'Dziękujemy! Zapisaliśmy Twój e-mail.', extra_tags='newsletter')
             form = self.form()
         else:
-            messages.error(request, 'Podany e-mail jest już w naszej bazie!')
+            messages.error(request, 'Podany e-mail jest już w naszej bazie!', extra_tags='newsletter')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         
@@ -51,30 +51,30 @@ class ContactView(View):
     template = 'news/contact.html'
     
     def get(self, request):
-        form = self.form(None)
+        contact_form = self.form(None)
         context = {
-            'form': form
+            'contact_form': contact_form
         }
         return render(request, self.template, context)
         
     def post(self, request):
-        form = self.form(request.POST)
-        if form.is_valid():
-            first_name = form.cleaned_data.get("first_name")
-            last_name = form.cleaned_data.get("last_name")
-            subject = form.cleaned_data.get("subject")
-            email = form.cleaned_data.get("email")
-            message = form.cleaned_data.get("message")
+        contact_form = self.form(request.POST)
+        if contact_form.is_valid():
+            first_name = contact_form.cleaned_data.get("first_name")
+            last_name = contact_form.cleaned_data.get("last_name")
+            subject = contact_form.cleaned_data.get("subject")
+            email = contact_form.cleaned_data.get("email")
+            message = contact_form.cleaned_data.get("message")
             contact_message = "{} {} via {}: {}".format(first_name, last_name, email, message)
             from_mail = settings.EMAIL_HOST_USER
             to_mail = ['dworanowski.adrian@gmail.com']
             
             send_mail(subject, contact_message, from_mail, to_mail, fail_silently=False)
             
-            form = self.form(None)
+            contact_form = self.form(None)
             messages.success(request, 'Wiadomość została wysłana. Dziękujemy!')
             
         context = {
-            'form': form
+            'contact_form': contact_form
         }
         return render(request, self.template, context)

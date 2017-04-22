@@ -26,8 +26,15 @@
 
                         <hr>
 
-                        <form action="customer-orders.html" method="post">
+                        <form action="{% url 'users:register' %}" method="post">
                             {% csrf_token %}
+                            
+                            {% for message in messages %}
+                            {% if "register" in message.tags %}
+                                <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            
                             {% for field in user_form %}
                             <div class="form-group">
                                 {{ field.errors }}
@@ -60,9 +67,11 @@
 
                         <form method="post" action="{% url 'users:login' %}">
                             {% csrf_token %}
-                            {% if form.errors %}
-                                <p class="error">Niepoprawne hasło lub nazwa użytkownika.</p>
-                            {% endif %}
+                            {% for message in messages %}
+                            {% if "login" in message.tags %}
+                                 <p {% if message.tags %} class="{{message.tags}}" {% endif %}> {{ message }} </p>
+                            {% endif %} 
+                            {% endfor %}
                             <div class="form-group">
                                 {{ form.username.label_tag }}
                                 {{ form.username }}

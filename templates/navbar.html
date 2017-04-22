@@ -12,7 +12,7 @@
                 </li>
                 {% endif %}
                 {% if user.is_authenticated %}
-                <li><a href="contact.html">Aktywny użytkownik: {{ request.user.username }}</a>
+                <li><a href="{% url 'users:profile' %}">Aktywny użytkownik: {{ request.user.username }}</a>
                 </li>
                 <li><a href="{% url 'users:logout' %}?next={{request.path}}">Wyloguj</a>
                 </li>

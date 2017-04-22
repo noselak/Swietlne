@@ -25,7 +25,7 @@
                     </li>
                     <li><a href="{% url 'users:register' %}">Rejestracja</a>
                     </li>
-                    <li><a href="register.html">Moje konto</a>
+                    <li><a href="{% url 'users:profile' %}">Profil</a>
                     </li>
                 </ul>
 
@@ -74,8 +74,6 @@
             </div>
             <!-- /.col-md-3 -->
 
-
-
             <div class="col-md-3 col-sm-6">
 
                 <h4>Newsletter</h4>
@@ -84,6 +82,13 @@
 
                 <form method="POST" action="{% url 'news:home'%}">
                     {% csrf_token %}
+                    
+                    {% for message in messages %}
+                        {% if "newsletter" in message.tags %}
+                            <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                        {% endif %}
+                    {% endfor %} 
+                        
                     <div class="input-group">
 
                         {{ join_form.email }}
