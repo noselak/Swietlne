@@ -1,0 +1,141 @@
+{% extends "base.html" %} {% block head_title %}Wyniki wyszukiwania{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona główna</a>
+                </li>
+                <li>Wyniki wyszukiwania</li>
+            </ul>
+
+            <div class="box">
+                <h1>Wyniki wyszukiwania</h1>
+                <p>Nie znalazleś tego czego szukasz? Napisz do nas!</p>
+            </div>
+
+            <div class="box info-bar">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 products-showing">
+                        Pokazuje
+                        <strong>
+                            {% if products.has_next %}
+                                {{num_filter}}
+                            {% else %}
+                                {{display_count}}
+                            {% endif %}
+                        </strong> z <strong>{{products_all|length}}</strong> produktów
+                    </div>
+
+                    <div class="col-sm-12 col-md-8  products-number-sort">
+                        <div class="row">
+                            <form class="form-inline">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="products-number">
+                                        <strong>Pokaż</strong>
+                                        <select name="num" class="form-control">
+                                            <option value="9" {% if num_filter == '9' %} selected {% endif %}>9</option>
+                                            <option value="12" {% if num_filter == '12' %} selected {% endif %}>12</option>
+                                        </select>
+                                        <span>produktów</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="products-number">
+                                        <strong>Sortuj po</strong>
+                                        <select name="sort_by" class="form-control">
+                                            <option value="price" {% if sort_by == 'price' %} selected {% endif %}>cenie</option>
+                                            <option value="title" {% if sort_by == 'title' %} selected {% endif %}>nazwie</option>
+                                        </select>
+                                        <input type="hidden" name="q" value="{{request.GET.q}}">
+                                        <input class="btn btn-primary" type="submit" value="Pokaż">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row products">
+                {% for product in products|dictsort:sort_by %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
+                                        <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                                <div class="back">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
+                                        <img src="{{product.images.1.image.url}}" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'products:product_view' pk=product.pk %}" class="invisible">
+                            <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
+                        </a>
+                        <div class="text">
+                            <h3><a href="{% url 'products:product_view' pk=product.pk %}">{{product.title}}</a></h3>
+                            <p class="price">{{product.price}} zł</p>
+                            <p class="buttons">
+                                <a href="{% url 'products:product_view' pk=product.pk %}" class="btn btn-default btn-md">Szczegóły</a>
+                                <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
+                            </p>
+                        </div>
+                        <!-- /.text -->
+                        {% if product.on_sale %}
+                        <div class="ribbon sale">
+                            <div class="theribbon">SALE</div>
+                            <div class="ribbon-background"></div>
+                        </div>
+                        {% endif %}
+                        <!-- /.ribbon -->
+                        {% if product.is_new %}
+                        <div class="ribbon new">
+                            <div class="theribbon">NEW</div>
+                            <div class="ribbon-background"></div>
+                        </div>
+                        {% endif %}
+                        <!-- /.ribbon -->
+                    </div>
+                    <!-- /.product -->
+                </div>
+                {% endfor %}
+
+            </div>
+            <!-- /.products -->
+
+            <div class="pages">
+
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                    <li><a href="?{% if request.GET.q %}q={{request.GET.q}}&{% endif %}{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{products.previous_page_number}}">&laquo;</a>                        {% endif %}
+                    </li>
+                    {% for pag in products.paginator.page_range %} {% if products.number == pag %}
+                    <li class="active"><a href="#">{{ products.number }}</a>
+                    </li>
+                    {% else %}
+                    <li><a href="?{% if request.GET.q %}q={{request.GET.q}}&{% endif %}{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{pag}}">{{ pag }}</a>
+                    </li>
+                    {% endif %} {% endfor %} {% if products.has_next %}
+                    <li><a href="?{% if request.GET.q %}q={{request.GET.q}}&{% endif %}{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{products.next_page_number}}">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.col-md-9 -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

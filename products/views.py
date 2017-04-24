@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from .models import Product, Category
 
@@ -50,8 +51,35 @@ class ProductView(View):
     
         
 class SearchView(View):
-    template = 'products/category.html'
+    template = 'products/search.html'
     
     def get(self, request):
-        pass
+        query = request.GET.get('q')
+        num_filter = request.GET.get('num') or 9
+        sort_by = request.GET.get('sort_by') or 'title'
+        if query:
+            products_all = Product.active_objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).distinct()
+        else:
+            products_all = Product.active_objects.none()
+        
+        paginator = Paginator(products_all, num_filter)
+        page = request.GET.get('page')    
+        display_count = products_all.count() - ((paginator.num_pages-1) * int(num_filter))
+        
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+        context = {
+            'products': products,
+            'products_all': products_all,
+            'sort_by': sort_by,
+            'num_filter': num_filter,
+            'display_count': display_count,
+        }
+        return render(request, self.template, context)
         
