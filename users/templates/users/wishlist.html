@@ -1,0 +1,98 @@
+{% extends "base.html" %} 
+{% block head_title %}Wishlist - Lista życzeń{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Wishlist - Lista życzeń</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+ _________________________________________________________ -->
+            {% include 'sidebar-account.html' %}
+
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <div class="col-md-9" id="wishlist">
+
+            <div class="box">
+                <h1>Wishlist - Lista życzeń</h1>
+                <p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            </div>
+
+            <div class="row products">
+
+                {% for product in products %}
+                <div class="col-md-3 col-sm-4">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
+                                        <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                                <div class="back">
+                                    <a href="{% url 'products:product_view' pk=product.pk %}">
+                                        <img src="{{product.images.1.image.url}}" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'products:product_view' pk=product.pk %}" class="invisible">
+                            <img src="{{product.images.0.image.url}}" alt="" class="img-responsive">
+                        </a>
+                        <div class="text">
+                            <h3><a href="{% url 'products:product_view' pk=product.pk %}">{{product.title}}</a></h3>
+                            <p class="price">{{product.price}} zł</p>
+                            <p class="buttons">
+                                <a href="{% url 'products:product_view' pk=product.pk %}" class="btn btn-default btn-md">Szczegóły</a>
+                                <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
+                                <form method="POST" action="{% url 'users:wishlist' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="remove_wishlist" value="{{product.pk}}">
+                                    <input type="submit" class="btn btn-default btn-md">   
+                                </form>
+                            </p>
+                        </div>
+                        <!-- /.text -->
+                        {% if product.on_sale %}
+                        <div class="ribbon sale">
+                            <div class="theribbon">SALE</div>
+                            <div class="ribbon-background"></div>
+                        </div>
+                        {% endif %}
+                        <!-- /.ribbon -->
+                        {% if product.is_new %}
+                        <div class="ribbon new">
+                            <div class="theribbon">NEW</div>
+                            <div class="ribbon-background"></div>
+                        </div>
+                        {% endif %}
+                        <!-- /.ribbon -->
+                    </div>
+                    <!-- /.product -->
+                </div>
+                {% endfor %}
+            </div>
+            <!-- /.products -->
+
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

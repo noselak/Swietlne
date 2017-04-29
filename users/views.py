@@ -10,6 +10,7 @@ from django.urls import reverse
 
 from .forms import LoginForm, UserForm, UserProfileForm, PasswordChangeCustomForm
 from .models import UserProfile
+from products.models import Product
 
 
 class RegisterView(View):
@@ -141,4 +142,37 @@ class PasswordChangeView(View):
             'user_password_form': user_password_form
         }
         return render(request, self.template, context)
+        
+
+class WishlistView(View):
+    template = 'users/wishlist.html'
+    
+    @method_decorator(login_required(login_url='users:register'))
+    def get(self, request):
+        user = User.objects.get(pk=request.user.pk)
+        products = Product.objects.filter(wishlist=user)
+        context = {
+            'products': products,
+        }
+        return render(request, self.template, context)
+        
+    @method_decorator(login_required(login_url='users:register'))
+    def post(self, request):
+        product_pk = request.POST.get("wishlist") or request.POST.get("remove_wishlist")
+        user = User.objects.get(pk=request.user.pk)
+        product = Product.objects.get(pk=product_pk)
+        if request.POST.get("wishlist") is not None:
+            if product not in Product.objects.filter(wishlist=user):
+                product.wishlist.add(user)
+                product.save()
+                messages.success(request, 'Produkt {} dodany do listy życzeń!'.format(product), 
+                                extra_tags='wishlist')
+            else:
+                messages.error(request, 'Produkt {} już jest na Twojej liście życzeń!'.format(product), 
+                                extra_tags='wishlist')
+        else:
+            if product in Product.objects.filter(wishlist=user):
+                product.wishlist.remove(user)
+                product.save()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
     

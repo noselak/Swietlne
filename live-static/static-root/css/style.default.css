@@ -1390,11 +1390,15 @@ hr {
   border: 1px;
   border-color: #ffa84c;
   box-sizing: border-box;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 .btn-default {
   box-sizing: border-box;
   line-height: normal;
   min-height: 40px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 .btn-primary:hover,
 .btn-primary:focus,

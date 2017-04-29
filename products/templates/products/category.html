@@ -23,18 +23,18 @@
 
             <div class="box info-bar">
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 products-showing">
+                    <div class="col-sm-12 col-md-3 products-showing">
                         Pokazuje
                         <strong>
-                                    {% if products.has_next %}
-                                        {{num_filter}}
-                                    {% else %}
-                                        {{display_count}}
-                                    {% endif %}
-                                </strong> z <strong>{{category.products_count}}</strong> produktów
+                            {% if products.has_next %}
+                                {{num_filter}}
+                            {% else %}
+                                {{display_count}}
+                            {% endif %}
+                        </strong> z <strong>{{category.products_count}}</strong> produktów
                     </div>
 
-                    <div class="col-sm-12 col-md-8  products-number-sort">
+                    <div class="col-sm-12 col-md-9 text-center products-number-sort">
                         <div class="row">
                             <form class="form-inline">
                                 <div class="col-md-6 col-sm-6">
@@ -112,7 +112,6 @@
                 </div>
                 {% endfor %}
 
-
             </div>
             <!-- /.products -->
 
@@ -134,7 +133,6 @@
                     {% endif %}
                 </ul>
             </div>
-
 
         </div>
         <!-- /.col-md-9 -->
