@@ -1,0 +1,126 @@
+{% extends "base.html" %} {% block head_title %}Koszyk{% endblock %} {% block content %} {% load staticfiles %} {% load mathfilters %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Koszyk</li>
+            </ul>
+        </div>
+
+        <div class="col-md-9" id="basket">
+
+            <div class="box">
+
+                    <h1>Koszyk</h1>
+                    <p class="text-muted">Ilość produktów w koszyku: {{cart|length}} </p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Produkt</th>
+                                    <th>Ilość</th>
+                                    <th>Cena za 1 szt.</th>
+                                    <th colspan="2">Suma</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for item in cart %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'products:product_view' pk=item.product.pk %}">
+                                            <img src="{{item.product.images.0.image.url}}" alt="{{item.product.title}}">
+                                        </a>
+                                    </td>
+                                    <td><a href="{% url 'products:product_view' pk=item.product.pk %}">{{item.product.title}}</a>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <form action="{% url 'cart:add_to_cart_view' pk=item.product.pk %}" method="POST">
+                                            {% csrf_token %}
+                                            {{ item.update_quantity_form.quantity }} 
+                                            {{ item.update_quantity_form.update }}
+                                            <button type="submit" class="btn btn-blank"><i class="fa fa-refresh"></i></button>
+                                        </form>
+                                    </td>
+                                    <td>{{item.price}}</td>
+                                    <td>{{item.total_price}}</td>
+                                    <td>
+                                        <a href="{% url 'cart:remove_from_cart_view' pk=item.product.pk %}"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5">Razem</th>
+                                    <th colspan="2">{{cart.get_total_price}} zł</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                    <!-- /.table-responsive -->
+
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            {% with cart|last as last_item %}
+                            <a href="{% url 'products:category_view' category_slug=last_item.product.categories.all.0.slug %}" class="btn btn-default btn-md"><i class="fa fa-chevron-left"></i> Kontynuuj zakupy</a>
+                            {% endwith %}
+                        </div>
+                        <div class="pull-right">
+                            <!--<button type="submit" class="btn btn-default btn-md" form="form1"><i class="fa fa-refresh"></i> Aktualizacja koszyka</button>-->
+                            <button type="submit" class="btn btn-primary ">Złóż zamówienie <i class="fa fa-chevron-right"></i>
+                                    </button>
+                        </div>
+                    </div>
+
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col-md-9 -->
+
+        <div class="col-md-3">
+            <div class="box" id="order-summary">
+                <div class="box-header">
+                    <h3>Podsumowanie zamówienia</h3>
+                </div>
+                <p class="text-muted">Do każdej przesyłki doliczamy koszty wysyłki (10 zł).</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Podsuma zamówienia</td>
+                                <th>{{cart.get_total_price|floatformat:2}}</th>
+                            </tr>
+                            <tr>
+                                <td>Przesyłka</td>
+                                <th>10,00</th>
+                            </tr>
+                            <tr class="total">
+                                <td>Suma</td>
+                                <th>{{cart.get_total_price|addition:"10"|floatformat:2}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.col-md-3 -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

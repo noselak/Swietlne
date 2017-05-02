@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
 from .models import Product, Category
+from cart.forms import CartUpdateProductForm
 
 
 class CategoryView(View):
@@ -14,6 +15,7 @@ class CategoryView(View):
         products = Product.active_objects.filter(categories=category)
         num_filter = request.GET.get('num') or 9
         sort_by = request.GET.get('sort_by') or 'title'
+        cart_form = CartUpdateProductForm()
         
         paginator = Paginator(products, num_filter)
         page = request.GET.get('page')
@@ -35,6 +37,7 @@ class CategoryView(View):
             'sort_by': sort_by,
             'num_filter': num_filter,
             'display_count': display_count,
+            'cart_form': cart_form
         }
         return render(request, self.template, context)
        

@@ -170,7 +170,7 @@ class WishlistView(View):
             else:
                 messages.error(request, 'Produkt {} już jest na Twojej liście życzeń!'.format(product), 
                                 extra_tags='wishlist')
-        else:
+        elif request.POST.get("remove_wishlist") is not None:
             if product in Product.objects.filter(wishlist=user):
                 product.wishlist.remove(user)
                 product.save()

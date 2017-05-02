@@ -42,7 +42,7 @@ class Product(models.Model):
     is_new = models.BooleanField(default=False)
     on_sale = models.BooleanField(default=False)
     best_buy = models.BooleanField(default=False)
-    wishlist = models.ManyToManyField(User)
+    wishlist = models.ManyToManyField(User, blank=True)
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
@@ -61,6 +61,7 @@ class Product(models.Model):
     def images(self):
         images = ProductImage.objects.filter(product=self)
         return images
+   
         
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
