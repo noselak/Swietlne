@@ -1,0 +1,73 @@
+{% extends "base.html" %} 
+{% block head_title %}Dane do zamówienia{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Dane do wysyłki</li>
+            </ul>
+        </div>
+
+        <div class="col-md-9" id="checkout">
+
+            <div class="box">
+                <form method="post" action="">
+                    <h1>Zamówienie</h1>
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a href="#"><i class="fa fa-map-marker"></i><br>Addres wysyłki</a>
+                        </li>
+                        <li class="disabled"><a href="#"><i class="fa fa-eye"></i><br>Potwierdzenie zamówienia</a>
+                        </li>
+                    </ul>
+
+                    <div class="content">
+                        <div class="row">
+                            {% for field in order_create_form %}
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ field.errors }}
+                                    {{ field.label_tag }} 
+                                    {{ field }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- /.row -->
+                    </div>
+
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{% url 'cart:cart_view' %}" class="btn btn-default btn-md"><i class="fa fa-chevron-left"></i> Powrót do koszyka</a>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">Dalej<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col-md-9 -->
+
+        <div class="col-md-3">
+
+            {% include 'order-summary.html' %}
+
+        </div>
+        <!-- /.col-md-3 -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

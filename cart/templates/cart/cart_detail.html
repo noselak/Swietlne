@@ -47,8 +47,8 @@
                                             <button type="submit" class="btn btn-blank"><i class="fa fa-refresh"></i></button>
                                         </form>
                                     </td>
-                                    <td>{{item.price}}</td>
-                                    <td>{{item.total_price}}</td>
+                                    <td>{{item.price}} zł</td>
+                                    <td>{{item.total_price}} zł</td>
                                     <td>
                                         <a href="{% url 'cart:remove_from_cart_view' pk=item.product.pk %}"><i class="fa fa-trash-o"></i></a>
                                     </td>
@@ -69,14 +69,17 @@
 
                     <div class="box-footer">
                         <div class="pull-left">
+                            {% if cart|length > 0 %}
                             {% with cart|last as last_item %}
                             <a href="{% url 'products:category_view' category_slug=last_item.product.categories.all.0.slug %}" class="btn btn-default btn-md"><i class="fa fa-chevron-left"></i> Kontynuuj zakupy</a>
                             {% endwith %}
+                            {% else %}
+                            <a href="{% url 'news:home' %}" class="btn btn-default btn-md"><i class="fa fa-chevron-left"></i> Kontynuuj zakupy</a>
+                            {% endif %}
                         </div>
                         <div class="pull-right">
-                            <!--<button type="submit" class="btn btn-default btn-md" form="form1"><i class="fa fa-refresh"></i> Aktualizacja koszyka</button>-->
-                            <button type="submit" class="btn btn-primary ">Złóż zamówienie <i class="fa fa-chevron-right"></i>
-                                    </button>
+                            <a href="{% url 'orders:order_create_view' %}" class="btn btn-primary">Złóż zamówienie <i class="fa fa-chevron-right"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -88,32 +91,7 @@
         <!-- /.col-md-9 -->
 
         <div class="col-md-3">
-            <div class="box" id="order-summary">
-                <div class="box-header">
-                    <h3>Podsumowanie zamówienia</h3>
-                </div>
-                <p class="text-muted">Do każdej przesyłki doliczamy koszty wysyłki (10 zł).</p>
-
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Podsuma zamówienia</td>
-                                <th>{{cart.get_total_price|floatformat:2}}</th>
-                            </tr>
-                            <tr>
-                                <td>Przesyłka</td>
-                                <th>10,00</th>
-                            </tr>
-                            <tr class="total">
-                                <td>Suma</td>
-                                <th>{{cart.get_total_price|addition:"10"|floatformat:2}}</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+            {% include 'order-summary.html' %}
 
         </div>
         <!-- /.col-md-3 -->

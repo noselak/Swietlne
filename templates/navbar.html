@@ -82,8 +82,15 @@
                         <span class="sr-only">Toggle search</span>
                         <i class="fa fa-search"></i>
                     </button>
-                <a class="btn btn-default navbar-toggle" href="basket.html">
-                    <i class="fa fa-shopping-cart"></i> <span class="hidden-xs">Koszyk: 3</span>
+                <a class="btn btn-default navbar-toggle" href="{% url 'cart:cart_view' %}">
+                    <i class="fa fa-shopping-cart"></i> 
+                    <span class="hidden-xs">
+                        {% if cart|length > 0 %}
+                        Koszyk: {{cart|length}}
+                        {% else %}
+                        Pusty koszyk
+                        {% endif %}
+                    </span>
                 </a>
             </div>
         </div>
@@ -131,7 +138,15 @@
         <div class="navbar-buttons">
 
             <div class="navbar-collapse collapse right" id="basket-overview">
-                <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">Koszyk: 3</span></a>
+                <a href="{% url 'cart:cart_view' %}" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i>
+                    <span class="hidden-sm">
+                    {% if cart|length > 0 %}
+                    Koszyk: {{cart|length}}
+                    {% else %}
+                    Pusty koszyk
+                    {% endif %}
+                    </span>
+                </a>
             </div>
             <!--/.nav-collapse -->
 

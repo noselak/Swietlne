@@ -66,6 +66,7 @@
                                 <a href="{% url 'products:product_view' pk=product.pk %}" class="btn btn-default btn-md">Szczegóły</a>
                                 <form method="POST" action="{% url 'cart:add_to_cart_view' pk=product.pk %}">
                                     {% csrf_token %}
+                                    <div class="hidden">{{ cart_form }}</div>
                                     <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
                                 </form>
                             </div>

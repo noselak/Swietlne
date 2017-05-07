@@ -47,8 +47,10 @@ class ProductView(View):
     
     def get(self, request, pk):
         product = Product.active_objects.get(pk=pk)
+        cart_form = CartUpdateProductForm()
         context = {
             'product': product,
+            'cart_form': cart_form
         }
         return render(request, self.template, context)
     
@@ -60,6 +62,7 @@ class SearchView(View):
         query = request.GET.get('q')
         num_filter = request.GET.get('num') or 9
         sort_by = request.GET.get('sort_by') or 'title'
+        cart_form = CartUpdateProductForm()
         if query:
             products_all = Product.active_objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).distinct()
         else:
@@ -83,6 +86,7 @@ class SearchView(View):
             'sort_by': sort_by,
             'num_filter': num_filter,
             'display_count': display_count,
+            'cart_form': cart_form
         }
         return render(request, self.template, context)
         

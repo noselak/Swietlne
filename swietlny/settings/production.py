@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'products',
     'users',
     'cart',
+    'orders',
 ]
 
 
@@ -83,6 +84,7 @@ TEMPLATES = [
                 'news.context_processors.categories',
                 'news.context_processors.news_form',
                 'users.context_processors.login_form',
+                'cart.context_processors.cart',
             ],
         },
     },

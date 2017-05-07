@@ -11,8 +11,6 @@ class Category(models.Model):
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
-    objects = models.Manager()
-    
     class Meta:
         verbose_name = 'Kategoria'
         verbose_name_plural = 'Kategorie'
@@ -46,7 +44,6 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
-    objects = models.Manager()
     active_objects =  ActiveProductManager()
     
     class Meta:
@@ -66,8 +63,6 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField()
-    
-    objects = models.Manager()
     
     class Meta:
         verbose_name = 'Zdjęcie produktu'

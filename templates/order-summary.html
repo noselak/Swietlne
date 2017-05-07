@@ -1,0 +1,28 @@
+{% load mathfilters %}
+
+<div class="box" id="order-summary">
+    <div class="box-header">
+        <h3>Podsumowanie zamówienia</h3>
+    </div>
+    <p class="text-muted">Do każdej przesyłki doliczamy koszty przesyłki (10 zł).</p>
+
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Podsuma</td>
+                    <th>{{cart.get_total_price|floatformat:2}} zł</th>
+                </tr>
+                <tr>
+                    <td>Przesyłka</td>
+                    <th>10,00 zł</th>
+                </tr>
+                <tr class="total">
+                    <td>Suma</td>
+                    <th>{{cart.get_total_price|addition:"10"|floatformat:2}} zł</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

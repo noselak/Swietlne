@@ -38,7 +38,7 @@ class UserProfileForm(forms.ModelForm):
         fields = ('full_name', 'address', 'phone')
         labels = {
             'full_name': 'Imię i nazwisko',
-            'address': 'Adres wysyłki',
+            'address': 'Adres',
             'phone': 'Telefon'
         }
         widgets = {

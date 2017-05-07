@@ -11,6 +11,7 @@ from django.urls import reverse
 from .forms import LoginForm, UserForm, UserProfileForm, PasswordChangeCustomForm
 from .models import UserProfile
 from products.models import Product
+from cart.forms import CartUpdateProductForm
 
 
 class RegisterView(View):
@@ -151,8 +152,10 @@ class WishlistView(View):
     def get(self, request):
         user = User.objects.get(pk=request.user.pk)
         products = Product.objects.filter(wishlist=user)
+        cart_form = CartUpdateProductForm()
         context = {
             'products': products,
+            'cart_form': cart_form
         }
         return render(request, self.template, context)
         
@@ -175,4 +178,3 @@ class WishlistView(View):
                 product.wishlist.remove(user)
                 product.save()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    

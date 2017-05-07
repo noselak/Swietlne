@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block head_title %}Potwierdzenie zamówienia{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Potwierdzenie zamówienia</li>
+            </ul>
+        </div>
+
+        <div class="col-md-9" id="checkout">
+
+            <div class="box">
+                <form method="post" action="{% url 'orders:order_confirm_view' %}">
+                    <h1>Potwierdzenie zamówienia</h1>
+                    <ul class="nav nav-pills nav-justified">
+                        <li class=""><a href="#"><i class="fa fa-map-marker"></i><br>Addres wysyłki</a>
+                        </li>
+                        <li class="active"><a href="#"><i class="fa fa-eye"></i><br>Potwierdzenie zamówienia</a>
+                        </li>
+                    </ul>
+
+                    <div class="content">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Produkt</th>
+                                        <th>Ilość</th>
+                                        <th>Cena za 1 szt.</th>
+                                        <th colspan="2">Suma</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cart %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'products:product_view' pk=item.product.pk %}">
+                                            <img src="{{item.product.images.0.image.url}}" alt="{{item.product.title}}">
+                                            </a>
+                                        </td>
+                                        <td><a href="{% url 'products:product_view' pk=item.product.pk %}">{{item.product.title}}</a>
+                                        </td>
+                                        <td></td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.price}} zł</td>
+                                        <td>{{item.total_price}} zł</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="5">Razem</th>
+                                        <th colspan="2">{{cart.get_total_price}} zł</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.content -->
+
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{% url 'orders:order_create_view' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i>Powrót do adresu wysyłki</a>
+                        </div>
+                        <div class="pull-right">
+                            <input type="hidden" name="order_pk" value="{{order.pk}}">
+                            <button type="submit" class="btn btn-primary">Zatwierdź zamówienie<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col-md-9 -->
+
+        <div class="col-md-3">
+
+            {% include 'order-summary.html' %}
+
+        </div>
+        <!-- /.col-md-3 -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}
