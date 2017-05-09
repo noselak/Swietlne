@@ -44,6 +44,7 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category')
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     
+    objects = models.Manager()
     active_objects =  ActiveProductManager()
     
     class Meta:

@@ -15,9 +15,10 @@
 
             <div class="box">
                 <form method="post" action="{% url 'orders:order_confirm_view' %}">
+                {% csrf_token %}
                     <h1>Potwierdzenie zamówienia</h1>
                     <ul class="nav nav-pills nav-justified">
-                        <li class=""><a href="#"><i class="fa fa-map-marker"></i><br>Addres wysyłki</a>
+                        <li class=""><a href="{% url 'orders:order_create_view' %}"><i class="fa fa-map-marker"></i><br>Addres wysyłki</a>
                         </li>
                         <li class="active"><a href="#"><i class="fa fa-eye"></i><br>Potwierdzenie zamówienia</a>
                         </li>
@@ -66,7 +67,7 @@
 
                     <div class="box-footer">
                         <div class="pull-left">
-                            <a href="{% url 'orders:order_create_view' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i>Powrót do adresu wysyłki</a>
+                            <a href="{% url 'orders:order_create_view' %}" class="btn btn-default btn-md"><i class="fa fa-chevron-left"></i>Powrót do adresu wysyłki</a>
                         </div>
                         <div class="pull-right">
                             <input type="hidden" name="order_pk" value="{{order.pk}}">

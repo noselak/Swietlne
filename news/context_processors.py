@@ -6,7 +6,7 @@ def categories(request):
     return {'categories': categories}
     
 def news_form(request):
-    form = JoinForm(request.POST or None)
+    form = JoinForm(None)
     return {
         'join_form': form,
     }

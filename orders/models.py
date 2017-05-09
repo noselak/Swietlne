@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 from products.models import Product
 
@@ -9,11 +10,11 @@ STATUS_CHOICES = (
                     ('sent', 'Wysłano'),
                     ('cancelled', 'Anulowano')
     )
-    
+
+
 class AcceptedOrderManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
-        super(AcceptedOrderManager, self).get_queryset().filter(
-            accepted=True)
+        return super(AcceptedOrderManager, self).get_queryset().filter(accepted=True)
 
 
 class Order(models.Model):
@@ -30,6 +31,7 @@ class Order(models.Model):
             default='awaiting')
     shipping_total_price = models.DecimalField(max_digits=50, decimal_places=2, default=10.00)
     
+    objects = models.Manager()
     accepted_orders = AcceptedOrderManager()
     
     class Meta:
@@ -37,10 +39,10 @@ class Order(models.Model):
         verbose_name_plural = 'Zamówienia'
     
     def __str__(self):
-        return "Order #{}, ".format(self.pk)
+        return "Order #{}, {}".format(self.pk, self.user)
         
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all()) + self.shipping_total_price
+        return sum(item.get_cost() for item in self.items.all())
         
 
 class OrderItem(models.Model):
@@ -51,7 +53,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     
     def __str__(self):
-        return "Order Item #{}, ".format(self.pk)
+        return "Order Item #{}: {}".format(self.pk, self.product)
     
     def get_cost(self):
         return self.price * self.quantity

@@ -14,7 +14,6 @@ class AddToCartView(View):
         cart_form = CartUpdateProductForm(request.POST)
         if cart_form.is_valid():
             cleaned_data = cart_form.cleaned_data
-            print(cleaned_data['quantity'])
             cart.add(product=product,
                         quantity=cleaned_data['quantity'],
                         update_quantity=cleaned_data['update'])
