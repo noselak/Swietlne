@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, update_session_auth_hash
@@ -11,6 +11,7 @@ from django.urls import reverse
 from .forms import LoginForm, UserForm, UserProfileForm, PasswordChangeCustomForm
 from .models import UserProfile
 from products.models import Product
+from orders.models import Order
 from cart.forms import CartUpdateProductForm
 
 
@@ -78,8 +79,8 @@ class LoginView(View):
         
     def get(self, request, *args, **kwargs):
         return redirect('users:register')
-        
-        
+
+
 class ProfileView(View):
     template = 'users/account.html'
     
@@ -112,8 +113,8 @@ class ProfileView(View):
             print(user_profile.address)
             user_profile.save()
         return redirect('users:profile')
-        
-        
+
+
 class PasswordChangeView(View):
     template = 'users/account.html'
     
@@ -143,7 +144,7 @@ class PasswordChangeView(View):
             'user_password_form': user_password_form
         }
         return render(request, self.template, context)
-        
+
 
 class WishlistView(View):
     template = 'users/wishlist.html'
@@ -178,3 +179,32 @@ class WishlistView(View):
                 product.wishlist.remove(user)
                 product.save()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+class OrderListView(View):
+    template = 'users/orders.html'
+
+    @method_decorator(login_required(login_url='users:register'))
+    def get(self, request):
+        user = request.user
+        orders = Order.accepted_orders.filter(user=user)
+        
+        context = {
+            'orders': orders
+        }
+        return render(request, self.template, context)
+
+
+class OrderView(View):
+    template = 'users/order_detail.html'
+    
+    @method_decorator(login_required(login_url='users:register'))
+    def get(self, request, pk):
+        order =  get_object_or_404(Order, pk=pk)
+        if order.user == request.user:
+            context = {
+                'order': order
+            }
+            return render(request, self.template, context)
+        else:
+            return redirect('users:profile')

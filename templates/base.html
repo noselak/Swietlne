@@ -13,17 +13,23 @@
     <title>ŚWIETLNE - {% block head_title %}{% endblock %}</title>
 
     {% include 'css.html' %}
+    {% include 'pre-javascript.html' %}
 </head>
 
 <body>
-    {% include 'navbar.html' %}
-    <div class="all">
-        {% block content %} 
-        {% endblock %} 
+    <div class="page-wrapper">
+        {% include 'navbar.html' %}
+        <div class="all">
+            {% block content %} 
+            {% endblock %} 
             
+        </div>
         {% include 'footer.html' %}
     </div>
-    {% include 'javascript.html' %}
+    {% include 'post-javascript.html' %}
+    
+    
+    
 </body>
 
 </html>

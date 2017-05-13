@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    $('#filter-button-category').click(function(event) {
+        var num = $('select[name="num"]').val();
+        var sort_by = $('select[name="sort_by"]').val();
+        event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: '{% url "products:category_view" category_slug=category.slug %}',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'num': num,
+                'sort_by': sort_by
+            },
+            success: function(data) {
+                var result = $(data).find("#content");
+                $('.all').html(result);
+            },
+            error: function(data) {
+                console.log('error');
+            }
+        });
+    });
+</script>

@@ -163,10 +163,10 @@
 
             <form method="GET" class="navbar-form" role="search" action="{% url 'products:search_view' %}">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="q" placeholder="Szukaj na stronie">
+                    <input type="text" class="form-control q" name="q" placeholder="Szukaj na stronie">
                     <span class="input-group-btn">
 
-			<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+			<button type="submit" id="search-button" class="btn btn-primary"><i class="fa fa-search"></i></button>
 
 		    </span>
                 </div>

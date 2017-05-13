@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block head_title %}Wyniki wyszukiwania{% endblock %} {% block content %} {% load staticfiles %}
+{% extends 'base.html' %}
+{% block content %} 
+{% load staticfiles %}
 
 <div id="content">
     <div class="container">
@@ -29,9 +31,10 @@
                         </strong> z <strong>{{products_all|length}}</strong> produktów
                     </div>
 
-                    <div class="col-sm-12 col-md-8  products-number-sort">
+                    <div class="col-sm-12 col-md-8 products-number-sort">
                         <div class="row">
-                            <form class="form-inline">
+                            <form class="form-inline" method="GET">
+                                {% csrf_token %}
                                 <div class="col-md-6 col-sm-6">
                                     <div class="products-number">
                                         <strong>Pokaż</strong>
@@ -50,7 +53,7 @@
                                             <option value="title" {% if sort_by == 'title' %} selected {% endif %}>nazwie</option>
                                         </select>
                                         <input type="hidden" name="q" value="{{request.GET.q}}">
-                                        <input class="btn btn-primary" type="submit" value="Pokaż">
+                                        <button class="btn btn-primary" id="filter-button-search" type="submit">Pokaż</button>
                                     </div>
                                 </div>
                             </form>
@@ -139,7 +142,11 @@
 
     </div>
     <!-- /.container -->
+    
+    {% include 'products/search-js.html' %}
 </div>
 <!-- /#content -->
+
+
 
 {% endblock %}

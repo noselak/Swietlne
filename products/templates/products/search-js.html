@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $('#filter-button-search').click(function(event){
+        var q = '{{request.GET.q}}';
+        var num = $('select[name="num"]').val();
+        var sort_by = $('select[name="sort_by"]').val();
+        event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: '{% url "products:search_view" %}',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'q': q,
+                'num': num,
+                'sort_by': sort_by
+            },
+            success: function(data){
+                var result = $(data).find("#content");
+                $('.all').html(result);
+            },
+            error: function(data){
+                console.log('error');
+            }
+        });
+    });
+</script>

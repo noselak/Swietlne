@@ -1,0 +1,27 @@
+<script type="text/javascript">
+    
+
+        // ajax product search 
+        $('#search-button').click(function(event) {
+            var query = $("#search").find('.q').val();
+            event.preventDefault()
+            if (query != '' || query != ' ') {
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "products:search_view" %}',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'q': query
+                    },
+                    success: function(data) {
+                        var result = $(data).find("#content");
+                        $('.all').html(result);
+                    }
+                });
+            }
+        });
+        
+        
+
+
+</script>

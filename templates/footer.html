@@ -1,150 +1,153 @@
-<!-- *** FOOTER ***
- _________________________________________________________ -->
 {% load staticfiles %}
-<div id="footer" data-animate="fadeInUp">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <h4>Nawigacja</h4>
+<div id="footer-wrapper">
+    <!-- *** FOOTER ***
+ _________________________________________________________ -->
+    <div id="footer" data-animate="fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <h4>Nawigacja</h4>
 
-                <ul>
-                    <li><a href="text.html">Regulamin</a>
-                    </li>
-                    <li><a href="{% url 'news:faq' %}">FAQ</a>
-                    </li>
-                    <li><a href="{% url 'news:contact' %}">Kontakt</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li><a href="text.html">Regulamin</a>
+                        </li>
+                        <li><a href="{% url 'news:faq' %}">FAQ</a>
+                        </li>
+                        <li><a href="{% url 'news:contact' %}">Kontakt</a>
+                        </li>
+                    </ul>
 
-                <hr>
+                    <hr>
 
-                <h4>Strefa klienta</h4>
+                    <h4>Strefa klienta</h4>
 
-                <ul>
-                    <li><a href="#" data-toggle="modal" data-target="#login-modal">Logowanie</a>
-                    </li>
-                    <li><a href="{% url 'users:register' %}">Rejestracja</a>
-                    </li>
-                    <li><a href="{% url 'users:profile' %}">Profil</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li><a href="#" data-toggle="modal" data-target="#login-modal">Logowanie</a>
+                        </li>
+                        <li><a href="{% url 'users:register' %}">Rejestracja</a>
+                        </li>
+                        <li><a href="{% url 'users:profile' %}">Profil</a>
+                        </li>
+                    </ul>
 
-                <hr class="hidden-md hidden-lg hidden-sm">
+                    <hr class="hidden-md hidden-lg hidden-sm">
 
-            </div>
-            <!-- /.col-md-3 -->
+                </div>
+                <!-- /.col-md-3 -->
 
-            <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6">
 
-                <h4>Sklep</h4>
+                    <h4>Sklep</h4>
 
-                <h5>Kategorie</h5>
+                    <h5>Kategorie</h5>
 
-                <ul>
-                    {% for category in categories %}
-                    <li><a href="{% url 'products:category_view' category_slug=category.slug %}">{{category.title}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                    <ul>
+                        {% for category in categories %}
+                        <li><a href="{% url 'products:category_view' category_slug=category.slug %}">{{category.title}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
 
-                <h5>Pracownia</h5>
-                <ul>
-                    <li><a href="category.html">Zamówienia indywidualne</a>
-                    </li>
-                    <li><a href="category.html">O nas</a>
-                    </li>
-                </ul>
+                    <h5>Pracownia</h5>
+                    <ul>
+                        <li><a href="category.html">Zamówienia indywidualne</a>
+                        </li>
+                        <li><a href="category.html">O nas</a>
+                        </li>
+                    </ul>
 
-                <hr class="hidden-md hidden-lg">
+                    <hr class="hidden-md hidden-lg">
 
-            </div>
-            <!-- /.col-md-3 -->
+                </div>
+                <!-- /.col-md-3 -->
 
-            <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6">
 
-                <h4>Nasze pracownie:</h4>
+                    <h4>Nasze pracownie:</h4>
 
-                <p><strong>Czempiń</strong>
-                    <br>64-020
-                    <br>Wielkopolska
-                </p>
+                    <p><strong>Czempiń</strong>
+                        <br>64-020
+                        <br>Wielkopolska
+                    </p>
 
-                <hr class="hidden-md hidden-lg">
+                    <hr class="hidden-md hidden-lg">
 
-            </div>
-            <!-- /.col-md-3 -->
+                </div>
+                <!-- /.col-md-3 -->
 
-            <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6">
 
-                <h4>Newsletter</h4>
+                    <h4>Newsletter</h4>
 
-                <p class="text-muted">Zapisz się do naszego newslettera, aby być nie przegapić najnowszych produktów:</p>
+                    <p class="text-muted">Zapisz się do naszego newslettera, aby być nie przegapić najnowszych produktów:</p>
 
-                <form method="POST" action="{% url 'news:home'%}">
-                    {% csrf_token %}
-                    
-                    {% for message in messages %}
-                        {% if "newsletter" in message.tags %}
+                    <form method="POST" action="{% url 'news:home'%}">
+                        {% csrf_token %}
+                        <div class="newsletter-message">
+                        {% for message in messages %} 
+                            {% if "newsletter" in message.tags %}
                             <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
-                        {% endif %}
-                    {% endfor %} 
-                        
-                    <div class="input-group">
+                            {% endif %} 
+                        {% endfor %}
+                        </div>
+                            <div class="input-group">
 
-                        {{ join_form.email }}
+                                {{ join_form.email }}
 
-                        <span class="input-group-btn">
+                                <span class="input-group-btn">
 
-			                <button class="btn btn-default btn-news" type="submit">Zapisz się!</button>
+			                <button class="btn btn-default btn-news" id="newsletter-button" type="submit">Zapisz się!</button>
 
                         </span>
 
-                    </div>
-                    <!-- /input-group -->
-                </form>
+                            </div>
+                            <!-- /input-group -->
+                    </form>
 
-                <hr>
+                    <hr>
 
-                <h4>Odwiedź nas na:</h4>
+                    <h4>Odwiedź nas na:</h4>
 
-                <p class="social">
-                    <a href="#" class="facebook external" data-animate-hover="shake"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="twitter external" data-animate-hover="shake"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="instagram external" data-animate-hover="shake"><i class="fa fa-instagram"></i></a>
-                    <a href="#" class="gplus external" data-animate-hover="shake"><i class="fa fa-google-plus"></i></a>
-                    <a href="#" class="email external" data-animate-hover="shake"><i class="fa fa-envelope"></i></a>
-                </p>
+                    <p class="social">
+                        <a href="#" class="facebook external" data-animate-hover="shake"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="twitter external" data-animate-hover="shake"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="instagram external" data-animate-hover="shake"><i class="fa fa-instagram"></i></a>
+                        <a href="#" class="gplus external" data-animate-hover="shake"><i class="fa fa-google-plus"></i></a>
+                        <a href="#" class="email external" data-animate-hover="shake"><i class="fa fa-envelope"></i></a>
+                    </p>
 
+
+                </div>
+                <!-- /.col-md-3 -->
 
             </div>
-            <!-- /.col-md-3 -->
+            <!-- /.row -->
 
         </div>
-        <!-- /.row -->
-
+        <!-- /.container -->
     </div>
-    <!-- /.container -->
-</div>
-<!-- /#footer -->
+    <!-- /#footer -->
 
-<!-- *** FOOTER END *** -->
+    <!-- *** FOOTER END *** -->
 
 
 
 
-<!-- *** COPYRIGHT ***
+    <!-- *** COPYRIGHT ***
  _________________________________________________________ -->
-<div id="copyright">
-    <div class="container">
-        <div class="col-md-6">
-            <p class="pull-left">© 2017 Adrian Dworanowski</p>
+    <div id="copyright">
+        <div class="container">
+            <div class="col-md-6">
+                <p class="pull-left">© 2017 Adrian Dworanowski</p>
 
-        </div>
-        <div class="col-md-6">
-            <p class="pull-right">Templatkę zapewnił: <a href="https://bootstrapious.com/e-commerce-templates">Bootstrapious.com</a>
-                <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
-            </p>
+            </div>
+            <div class="col-md-6">
+                <p class="pull-right">Templatkę zapewnił: <a href="https://bootstrapious.com/e-commerce-templates">Bootstrapious.com</a>
+                    <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
+                </p>
+            </div>
         </div>
     </div>
+    <!-- *** COPYRIGHT END *** -->
+    {% include 'news/newsletter-js.html' %}
 </div>
-<!-- *** COPYRIGHT END *** -->

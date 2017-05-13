@@ -7,7 +7,8 @@ class JoinForm(forms.ModelForm):
             widget=forms.EmailInput(
                 attrs={
                     'placeholder': 'Twój e-mail',
-                    'class': "form-control"
+                    'class': 'form-control',
+                    'id': 'newsletter-email'
                 }))
     class Meta:
         model = Join

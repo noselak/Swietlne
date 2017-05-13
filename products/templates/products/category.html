@@ -1,4 +1,8 @@
-{% extends "base.html" %} {% block head_title %}Sklep - {{category.title}}{% endblock %} {% block content %} {% load staticfiles %}
+{% extends 'base.html' %}
+{% block head_title %}Sklep - {{category.title}}
+{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
 
 <div id="content">
     <div class="container">
@@ -7,7 +11,7 @@
             <ul class="breadcrumb">
                 <li><a href="{% url 'news:home' %}">Strona główna</a>
                 </li>
-                <li>{{category.title}}</li>
+                <li id="category-title">{{category.title}}</li>
             </ul>
         </div>
 
@@ -54,7 +58,7 @@
                                                     <option value="price" {% if sort_by == 'price' %} selected {% endif %}>cenie</option>
                                                     <option value="title" {% if sort_by == 'title' %} selected {% endif %}>nazwie</option>
                                                 </select>
-                                        <input class="btn btn-primary" type="submit" value="Pokaż">
+                                        <button class="btn btn-primary" id="filter-button-category" type="submit">Pokaż</button>
                                     </div>
                                 </div>
                             </form>
@@ -143,7 +147,11 @@
         <!-- /.col-md-9 -->
     </div>
     <!-- /.container -->
+   {% include 'products/category-js.html' %} 
+    
 </div>
+
 <!-- /#content -->
 
 {% endblock %}
+

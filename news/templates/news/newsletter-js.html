@@ -1,0 +1,24 @@
+<script type="text/javascript">
+// ajax newsletter sign-up
+        $('#newsletter-button').click(function(event){
+            var email = $('#newsletter-email').val();
+            console.log(email);
+            event.preventDefault();
+            if (email != '' || email != ' ') {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "news:home" %}',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'email': email
+                    },
+                    success: function(data){
+                        var result = $(data).find('.newsletter-message').contents();
+                        $('.newsletter-message').hide().html(result).slideDown(500);
+                    }
+                });
+            }
+        });
+        
+        
+</script>

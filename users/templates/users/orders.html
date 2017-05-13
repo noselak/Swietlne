@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block head_title %}Moje zamówienia{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Moje zamówienia</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+ _________________________________________________________ -->
+            {% include 'sidebar-account.html' %}
+
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <div class="col-md-9" id="customer-orders">
+            <div class="box">
+                <h1>Moje zamówienia</h1>
+
+                <p class="lead">Historia Twoich zamówień w jednym miejscu.</p>
+                <p class="text-muted">Masz jakieś pytania? Skorzystaj z naszego <a href="{% url 'news:contact' %}">formularza kontaktowego</a> i napisz do nas.</p>
+
+                <hr>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nr zamówienia</th>
+                                <th>Data</th>
+                                <th>Suma</th>
+                                <th>Status</th>
+                                <th>Opcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <th>{{order.pk}}</th>
+                                <td>{{order.created.date}}</td>
+                                <td>{{order.get_total_cost}} zł</td>
+                                <td><span class="label label-info">{{order.get_status_display}}</span>
+                                </td>
+                                <td><a href="{% url 'users:order' pk=order.pk %}" class="btn btn-primary btn-md">Szczegóły</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

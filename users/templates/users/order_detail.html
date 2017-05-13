@@ -1,0 +1,99 @@
+{% extends "base.html" %} {% block head_title %}Zamówienie nr {{order.pk}}{% endblock %} {% block content %} {% load staticfiles %} {% load mathfilters %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li><a href="{% url 'users:order_list' %}">Moje zamówienia</a>
+                </li>
+                <li>Zamówienie nr {{order.pk}}</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+ _________________________________________________________ -->
+            {% include 'sidebar-account.html' %}
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <div class="col-md-9" id="customer-order">
+            <div class="box">
+                <h1>Zamówienie nr {{order.pk}}</h1>
+
+                <p class="lead">Zamówienie nr {{order.pk}} zostało złożone <strong>{{order.created.date}}</strong>. Jego status to: <strong>{{order.get_status_display}}</strong>.</p>
+                <p class="text-muted">Masz jakieś pytania? Skorzystaj z naszego <a href="{% url 'news:contact' %}">formularza kontaktowego</a> i napisz do nas.</p>
+
+                <hr>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="3">Produkt</th>
+                                <th>Ilość</th>
+                                <th>Cena za 1 szt.</th>
+                                <th>Suma</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items.all %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'products:product_view' pk=item.product.pk %}">
+                                        <img src="{{item.product.images.0.image.url}}" alt="{{item.product.title}}">
+                                    </a>
+                                </td>
+                                <td><a href="{% url 'products:product_view' pk=item.product.pk %}">{{item.product.title}}</a>
+                                </td>
+                                <td></td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price}} zł</td>
+                                <td>{{item.get_cost}} zł</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="5" class="text-right">Podsuma</th>
+                                <th>{{order.get_total_cost}} zł</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" class="text-right">Przesyłka</th>
+                                <th>{{order.shipping_total_price}} zł</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" class="text-right">Suma</th>
+                                <th>{{order.get_total_cost|addition:order.shipping_total_price|floatformat:2}} zł</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+                <!-- /.table-responsive -->
+
+                <div class="row addresses">
+                    <div class="col-md-6">
+                        <h2>Adres wysyłki:</h2>
+                        <p>{{order.full_name}}
+                            <br>{{order.address}}
+                            <br>
+                            <br>Telefon kontaktowy:
+                            <br>{{order.phone}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}
