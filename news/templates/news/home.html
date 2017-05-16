@@ -7,10 +7,20 @@
         <div class="col-md-12">
             <div id="main-slider">
                 <div class="item">
-                    <img class="img-responsive" src="{% static 'news/img/slider1.jpg' %}" alt="" >
+                    <img class="img-responsive" src="{% static 'news/img/slider1.jpg' %}" alt="">
+                    <a href="{% url 'products:search_view' %}">
+                        <div class="slider-outer2">
+                            <div class="slider-inner2">Zamówienia indywidualne</div>
+                        </div>
+                    </a>
                 </div>
                 <div class="item">
-                    <img class="img-responsive" src="{% static 'news/img/slider2.jpg' %}" alt="">
+                    <img class="img-responsive" src="{% static 'news/img/slider2.jpg' %}" alt="" >
+                    <a href="{% url 'products:search_view' %}">
+                        <div class="slider-outer1">
+                            <div class="slider-inner1">Nowości 2017</div>
+                        </div>
+                    </a>
                 </div>
                 <div class="item">
                     <img class="img-responsive" src="{% static 'news/img/slider3.jpg' %}" alt="">
@@ -71,7 +81,7 @@
                         <!-- /.ribbon -->
                         {% if product.is_new %}
                         <div class="ribbon new">
-                            <div class="theribbon">NEW</div>
+                            <div class="theribbon">NOWE</div>
                             <div class="ribbon-background"></div>
                         </div>
                         {% endif %}

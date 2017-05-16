@@ -64,9 +64,13 @@ class SearchView(View):
         sort_by = request.GET.get('sort_by') or 'title'
         cart_form = CartUpdateProductForm()
         if query:
-            products_all = Product.active_objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).distinct()
+            products_all = Product.active_objects.filter(
+                                                        Q(title__icontains=query) | 
+                                                        Q(description__icontains=query)
+                                                        ).distinct()
         else:
-            products_all = Product.active_objects.none()
+            # display only new product if there's no query
+            products_all = Product.active_objects.filter(is_new=True)
         
         paginator = Paginator(products_all, num_filter)
         page = request.GET.get('page')    
@@ -89,4 +93,3 @@ class SearchView(View):
             'cart_form': cart_form
         }
         return render(request, self.template, context)
-        

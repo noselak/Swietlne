@@ -22,8 +22,45 @@ class JoinForm(forms.ModelForm):
         return email
         
 class ContactForm(forms.Form):
-    first_name = forms.CharField(required=False, label="Imię", widget=forms.TextInput(attrs={'class': "form-control"}))
-    last_name = forms.CharField(required=False, label="Nazwisko", widget=forms.TextInput(attrs={'class': "form-control"}))
-    subject = forms.CharField(label="Temat", widget=forms.TextInput(attrs={'class': "form-control"}))
-    email = forms.EmailField(label="E-mail", widget=forms.TextInput(attrs={'class': "form-control"}))
-    message = forms.CharField(label="Wiadomość", widget=forms.Textarea(attrs={'class': "form-control"}))
+    first_name = forms.CharField(
+                                required=False, 
+                                label="Imię", 
+                                widget=forms.TextInput(attrs={
+                                                            'class': "form-control",
+                                                            'id': 'contact-first-name'
+                                                            }
+                                                    )
+                                )
+    last_name = forms.CharField(
+                                required=False, 
+                                label="Nazwisko", 
+                                widget=forms.TextInput(attrs={
+                                                            'class': "form-control",
+                                                            'id': 'contact-last-name'
+                                                            }
+                                                    )
+                                )
+    subject = forms.CharField(
+                            label="Temat", 
+                            widget=forms.TextInput(attrs={
+                                                        'class': "form-control",
+                                                        'id': 'contact-subject'
+                                                        }
+                                                )
+                            )
+    email = forms.EmailField(
+                            label="E-mail", 
+                            widget=forms.TextInput(attrs={
+                                                        'class': "form-control",
+                                                        'id': 'contact-email'
+                                                        }
+                                                )
+                            )
+    message = forms.CharField(
+                            label="Wiadomość", 
+                            widget=forms.Textarea(attrs={
+                                                        'class': "form-control",
+                                                        'id': 'contact-message'
+                                                        }
+                                                )
+                            )

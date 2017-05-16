@@ -66,6 +66,13 @@
 
                 <form method="POST">
                 {% csrf_token %}
+                    <div class="contact-message-out">
+                        {% for message in messages %} 
+                            {% if "contact-form" in message.tags %}
+                            <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                            {% endif %} 
+                        {% endfor %}
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -104,7 +111,7 @@
                         </div>
 
                         <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Wyślij wiadomość</button>
+                            <button type="submit" id="contact-button" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Wyślij wiadomość</button>
 
                         </div>
                     </div>
@@ -119,6 +126,7 @@
         <!-- /.col-md-9 -->
     </div>
     <!-- /.container -->
+    {% include 'news/contact-js.html' %} 
 </div>
 <!-- /#content -->
 

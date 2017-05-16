@@ -1,8 +1,8 @@
 <script type="text/javascript">
 // ajax newsletter sign-up
         $('#newsletter-button').click(function(event){
+            $('.newsletter-message').slideUp(500);
             var email = $('#newsletter-email').val();
-            console.log(email);
             event.preventDefault();
             if (email != '' || email != ' ') {
                 $.ajax({

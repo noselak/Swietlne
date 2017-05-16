@@ -4,6 +4,8 @@
         var num = $('select[name="num"]').val();
         var sort_by = $('select[name="sort_by"]').val();
         event.preventDefault();
+        
+        // ajax for search view
         $.ajax({
             type: 'GET',
             url: '{% url "products:search_view" %}',
@@ -20,6 +22,6 @@
             error: function(data){
                 console.log('error');
             }
-        });
+        }); 
     });
 </script>

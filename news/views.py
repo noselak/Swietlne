@@ -72,7 +72,7 @@ class ContactView(View):
             send_mail(subject, contact_message, from_mail, to_mail, fail_silently=False)
             
             contact_form = self.form(None)
-            messages.success(request, 'Wiadomość została wysłana. Dziękujemy!')
+            messages.success(request, 'Wiadomość została wysłana. Dziękujemy!', extra_tags='contact-form')
             
         context = {
             'contact_form': contact_form

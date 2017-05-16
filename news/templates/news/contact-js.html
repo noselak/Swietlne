@@ -1,0 +1,30 @@
+<script type="text/javascript">
+// ajax contact message send
+        $('#contact-button').click(function(event){
+            var first_name = $('#contact-first-name').val();
+            var last_name = $('#contact-last-name').val();
+            var subject = $('#contact-subject').val();
+            var email = $('#contact-email').val();
+            var message = $('#contact-message').val();
+            event.preventDefault();
+            
+            $.ajax({
+                type: 'POST',
+                url: '{% url "news:contact" %}',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'subject': subject,
+                    'email': email,
+                    'message': message
+                },
+                success: function(data){
+                    var result = $(data).find('#content').contents();
+                    $('#content').html(result).find('.contact-message-out').hide().slideDown(500);;
+                }
+            });
+        });
+        
+        
+</script>
