@@ -34,7 +34,7 @@
                     <!-- /.ribbon -->
                     {% if product.is_new %}
                     <div class="ribbon new">
-                        <div class="theribbon">NEW</div>
+                        <div class="theribbon">NOWE</div>
                         <div class="ribbon-background"></div>
                     </div>
                     {% endif %}
@@ -47,23 +47,21 @@
                         <p class="goToDescription"><a href="#details" class="scroll-to">Zobacz szczegóły</a>
                         </p>
                         <p class="price">{{product.price}} zł</p>
-                        {% for message in messages %}
-                            {% if "wishlist" in message.tags %}
-                                <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="buttons">
-                            <form method="POST" class="inline" action="{% url 'cart:add_to_cart_view' pk=product.pk %}">
-                                {% csrf_token %}
-                                <div class="hidden">{{ cart_form }}</div>
-                                <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
+                        {% for message in messages %} {% if "wishlist" in message.tags %}
+                        <p{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                            {% endif %} {% endfor %}
+                            <div class="buttons">
+                                <form method="POST" class="inline" action="{% url 'cart:add_to_cart_view' pk=product.pk %}">
+                                    {% csrf_token %}
+                                    <div class="hidden">{{ cart_form }}</div>
+                                    <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-shopping-cart"></i>Dodaj do koszyka</a>
                             </form>
                             <form method="POST" action="{% url 'users:wishlist' %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="wishlist" value="{{product.pk}}">
-                                <button type="submit" class="btn btn-default btn-md"><i class="fa fa-heart"></i> Dodaj do wishlisty</button>    
-                            </form>
-                        </div>
+                                <button type="submit" class="btn btn-default btn-md"><i class="fa fa-heart"></i> Dodaj do wishlisty</button>
+                                </form>
+                            </div>
                     </div>
 
                     <div class="row" id="thumbs">
@@ -81,34 +79,137 @@
 
 
             <div class="box" id="details">
-                <p>
-                    <h4>Opis</h4>
-                    <p>{{product.description}}</p>
-                    <h4>Materiał i pielęgnacja</h4>
-                    <p>{{product.material}}</p>
-                    <h4>Rozmiar</h4>
-                    <p>{{product.size}}</p>
+                <h4>Opis</h4>
+                <p>{{product.description}}</p>
+                <h4>Materiał i pielęgnacja</h4>
+                <p>{{product.material}}</p>
+                <h4>Rozmiar</h4>
+                <p>{{product.size}}</p>
 
-                    <blockquote>
-                        <p><em>{{product.categories.all.0.description}}</em>
-                        </p>
-                    </blockquote>
+                <blockquote>
+                    <p><em>{{product.categories.all.0.description}}</em>
+                    </p>
+                </blockquote>
 
-                    <hr>
-                    <div class="social">
-                        <h4>Podoba Ci się? Pochwal się znajomym!</h4>
-                        <p>
-                            <a href="#" class="external facebook" data-animate-hover="pulse"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="external gplus" data-animate-hover="pulse"><i class="fa fa-google-plus"></i></a>
-                            <a href="#" class="external twitter" data-animate-hover="pulse"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
-                        </p>
+                <hr>
+                <div class="social">
+                    <h4>Podoba Ci się? Pochwal się znajomym!</h4>
+                    <p>
+                        <a href="#" class="external facebook" data-animate-hover="pulse"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="external gplus" data-animate-hover="pulse"><i class="fa fa-google-plus"></i></a>
+                        <a href="#" class="external twitter" data-animate-hover="pulse"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+                    </p>
+                </div>
+
+            </div>
+            <div class="box">
+                <div id="comments" data-animate="fadeInUp">
+                    <h3>Komentarze</h3>
+                    {% for comment in comments %}
+                    <div class="row comment">
+                        <div class="col-sm-12 col-md-12">
+                            <h5 class="pull"><strong>{{comment.comment_username}}</strong></h5>
+                            <p class="posted"><i class="fa fa-clock-o"></i> {{comment.timestamp}}</p>
+                            <p>{{comment.comment_body}}</p>
+                            <p class="p-reply"><a class="reply" href="#"><i class="fa fa-reply"></i> Odpowiedz</a>
+                            </p>
+                        </div>
                     </div>
+                    <div class="answer-form">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-2">
+                                <div class="form-group">
+                                    {{ comment_create_form.comment_username.errors }} 
+                                    {{ comment_create_form.comment_username.label_tag }} 
+                                    {{ comment_create_form.comment_username }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="form-group">
+                                    {{ comment_create_form.comment_body.errors }} 
+                                    {{ comment_create_form.comment_body.label_tag }} 
+                                    {{ comment_create_form.comment_body }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ comment_create_form.content_type }}
+                        {{ comment_create_form.object_id }}
+                        <input type='hidden' name='parent_id' value='{{comment.id}}'>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-comment-o"></i> Wyślij odpowiedź</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                    {% if comment.children %} 
+                    {% for child_comment in comment.children %}
+                    <div class="row comment">
+                        <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+                            <h5 class="pull"><strong>{{child_comment.comment_username}}</strong></h5>
+                            <p class="posted"><i class="fa fa-clock-o"></i> {{child_comment.timestamp}}</p>
+                            <p>{{child_comment.comment_body}}</p>
+                        </div>
+                    </div>
+                    {% endfor %} 
+                    {% endif %}
+                    <!-- /.comment -->
+                    <hr>
+                    {% endfor %}
+
+                </div>
+                <!-- /#comments -->
+
+                <div id="comment-form" data-animate="fadeInUp">
+
+                    <h4>Napisz komentarz</h4>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ comment_create_form.comment_username.errors }} {{ comment_create_form.comment_username.label_tag }} {{ comment_create_form.comment_username }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    {{ comment_create_form.comment_body.errors }} {{ comment_create_form.comment_body.label_tag }} {{ comment_create_form.comment_body }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ comment_create_form.content_type }}
+                        {{ comment_create_form.object_id }}
+
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-comment-o"></i> Wyślij komentarz</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <!-- /#comment-form -->
             </div>
         </div>
         <!-- /.col-md-9 -->
     </div>
     <!-- /.container -->
+    {% include 'products/product-js.html' %} 
 </div>
 <!-- /#content -->
 

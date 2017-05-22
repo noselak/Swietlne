@@ -1,0 +1,11 @@
+<script type="text/javascript">
+
+(function(){
+    $('.answer-form').hide()
+
+    $('.reply').click(function(event){
+        event.preventDefault();
+        $(this).parents(':eq(2)').next('.answer-form').slideToggle(500);
+    });
+})();
+</script>

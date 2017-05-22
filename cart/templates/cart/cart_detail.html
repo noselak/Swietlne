@@ -50,7 +50,10 @@
                                     <td>{{item.price}} zł</td>
                                     <td>{{item.total_price}} zł</td>
                                     <td>
-                                        <a href="{% url 'cart:remove_from_cart_view' pk=item.product.pk %}"><i class="fa fa-trash-o"></i></a>
+                                        <form action="{% url 'cart:remove_from_cart_view' pk=item.product.pk %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-blank"><i class="fa fa-trash-o"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                                 {% endfor %}

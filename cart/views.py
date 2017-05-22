@@ -6,7 +6,6 @@ from .cart import Cart
 from .forms import CartUpdateProductForm
 
 
-
 class AddToCartView(View):
     def post(self, request, pk):
         cart = Cart(request)
@@ -21,7 +20,7 @@ class AddToCartView(View):
         
         
 class RemoveFromCartView(View):
-    def get(self, request, pk):
+    def post(self, request, pk):
         cart = Cart(request)
         product = Product.active_objects.get(pk=pk)
         cart.remove(product)

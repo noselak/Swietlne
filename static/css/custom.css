@@ -104,11 +104,13 @@
   right: 0;
   bottom: 0;
   text-align: center;
-  background: rgba(144, 178, 157, 0.7);
+  background: rgba(144, 178, 157, 0.9);
   /*background: rgba(255, 189, 119, 1);*/
   width: 300px;
   height: 100px;
   transition: 0.5s ease-in-out;
+  border: 5px solid rgba(144, 178, 157, 1);
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 1) inset;
 }
 
 .slider-outer1 > .slider-inner1 {
@@ -175,4 +177,8 @@
 .slider-outer2:hover > .slider-inner2 {
   font-size: 48px;
   transition: 0.5s ease-in-out;
+}
+
+.p-reply {
+  text-align: right;
 }

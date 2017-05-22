@@ -20,7 +20,8 @@ class JoinForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("Podany e-mail jest już w naszej bazie.")
         return email
-        
+
+   
 class ContactForm(forms.Form):
     first_name = forms.CharField(
                                 required=False, 

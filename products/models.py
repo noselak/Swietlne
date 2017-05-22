@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+
+from comments.models import Comment
 
 
 # Category
@@ -49,7 +52,7 @@ class Product(models.Model):
     
     class Meta:
         ordering = ["title"]
-        verbose_name = 'Produkt'
+        verbose_name = 'Product'
         verbose_name_plural = 'Produkty'
     
     def __str__(self):
@@ -59,8 +62,20 @@ class Product(models.Model):
     def images(self):
         images = ProductImage.objects.filter(product=self)
         return images
-   
+    
+    def get_absolute_url(self):
+        return reverse('products:product_view', args=[str(self.pk)])
+    
+    @property  
+    def content_type(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return content_type
         
+    def comments(self):
+        comments = Comment.objects.filter(object_id=self.pk)
+        return comments
+
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField()
@@ -71,5 +86,3 @@ class ProductImage(models.Model):
     
     def __str__(self):
         return self.product.title
-        
-

@@ -1,19 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .models import Order, OrderItem
-from .forms import OrderCreateForm
 from users.models import UserProfile
 from cart.cart import Cart
+from .models import Order, OrderItem
+from .forms import OrderCreateForm
 
 
 class OrderCreateView(View):
-
     def get(self, request):
+        cart = Cart(request)
         template = 'orders/order_create.html'
         order_create_form = OrderCreateForm()
+
+        # checking cart for products
+        if len(cart) < 1:
+            return redirect('cart:cart_view')
+
         # prepopulate form for logged users
         if request.user.is_authenticated():
             user = request.user
@@ -29,6 +34,7 @@ class OrderCreateView(View):
                 'phone': phone
             }
             order_create_form = OrderCreateForm(initial=data)
+
         context = {
             'order_create_form': order_create_form
         }
@@ -65,6 +71,9 @@ class OrderCreateView(View):
 
 class OrderConfirmView(View):
     template = 'orders/order_confirm.html'
+    
+    def get(self, request):
+        return redirect('news:home')
 
     def post(self, request):
         cart = Cart(request)
@@ -79,14 +88,15 @@ class OrderConfirmView(View):
         subject = "Potwierdzenie złożenia zamówienia nr {}".format(order.pk)
         email = order.email
         order_items = order.items.all()
-        message = """Dziękujemy za złożenie zamówienia. 
-                    Zamówione przedmioty: \n"""
+        message = "Dziękujemy za złożenie zamówienia. Zamówione przedmioty: \n"
         for item in order_items:
-            message += "{}: Ilość: {}\n".format(item.product.title, item.quantity)
+            message += "{}: Ilość: {}\n".format(item.product.title,
+                                                item.quantity)
         contact_message = "{} via {}: \n{}".format(full_name, email, message)
         from_mail = settings.EMAIL_HOST_USER
         to_mail = [settings.EMAIL_HOST_USER, order.email]
-        send_mail(subject, contact_message, from_mail, to_mail, fail_silently=False)
+        send_mail(subject, contact_message, from_mail, to_mail,
+                  fail_silently=False)
 
         context = {
             'order': order
