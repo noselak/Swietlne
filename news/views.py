@@ -14,9 +14,9 @@ class HomeView(View):
     template = 'news/home.html'
 
     def get(self, request):
-        best_buy_products = Product.active_objects.filter(best_buy=True)
+        new_products = Product.active_objects.filter(is_new=True)
         context = {
-            'products': best_buy_products,
+            'products': new_products,
         }
         return render(request, self.template, context)
         
@@ -78,3 +78,10 @@ class ContactView(View):
             'contact_form': contact_form
         }
         return render(request, self.template, context)
+
+
+class NotFoundView(View):
+    def get(self, request):
+        template = '404.html'
+        context = {}
+        return render(request, template, context)

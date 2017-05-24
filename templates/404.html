@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+{% block head_title %}Nie znaleziono strony{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+
+<div id="content">
+            <div class="container">
+
+                <div class="col-md-12">
+
+                    <ul class="breadcrumb">
+                        <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                        </li>
+                        <li>Błąd 404</li>
+                    </ul>
+
+
+                    <div class="row" id="error-page">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="box">
+
+                                <p class="text-center">
+                                    <img src="{% static 'img/logo_s_G3.png' %}" alt="Swietlne logo">
+                                </p>
+
+                                <h3>Przepraszamy - ta strona nie istnieje</h3>
+                                <h4 class="text-muted">Błąd 404!</h4>
+
+                                <p class="text-center">Prosimy skorzystać z wyszukiwarki produktów lub <a href="{% url 'news:contact' %}"<strong>formularza kontaktowego</strong></a></p>
+
+                                <p class="buttons"><a href="{% url 'news:home' %}" class="btn btn-primary"><i class="fa fa-home"></i> Powrót do strony domowej</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.col-md-9 -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#content -->
+        
+{% endblock %}

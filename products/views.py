@@ -111,7 +111,7 @@ class SearchView(View):
                                                         ).distinct()
         else:
             # display only new product if there's no query
-            products_all = Product.active_objects.filter(is_new=True)
+            products_all = Product.active_objects.filter(best_buy=True)
 
         paginator = Paginator(products_all, num_filter)
         page = request.GET.get('page')    

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from news.views import NotFoundView
+
 urlpatterns = [
     url(r'', include('news.urls', namespace="news")),
     url(r'^produkty/', include('products.urls', namespace="products")),
@@ -26,6 +28,8 @@ urlpatterns = [
     url(r'^zamowienia/', include('orders.urls', namespace="orders")),
     url(r'^admin/', admin.site.urls),
 ]
+
+handler404 = NotFoundView.as_view()
 
 if settings.DEBUG == True:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

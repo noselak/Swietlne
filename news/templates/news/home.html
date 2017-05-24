@@ -18,7 +18,7 @@
                     <img class="img-responsive" src="{% static 'news/img/slider2.jpg' %}" alt="" >
                     <a href="{% url 'products:search_view' %}">
                         <div class="slider-outer1">
-                            <div class="slider-inner1">Nowości 2017</div>
+                            <div class="slider-inner1">Popularne</div>
                         </div>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
         <div class="box">
             <div class="container">
                 <div class="col-md-12">
-                    <h2>Najczęściej kupowane</h2>
+                    <h2>Nowości</h2>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                         <!-- /.text -->
                         {% if product.on_sale %}
                         <div class="ribbon sale">
-                            <div class="theribbon">SALE</div>
+                            <div class="theribbon">OKAZJA</div>
                             <div class="ribbon-background"></div>
                         </div>
                         {% endif %}
