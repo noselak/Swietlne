@@ -8,11 +8,12 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from .forms import LoginForm, UserForm, UserProfileForm, PasswordChangeCustomForm
-from .models import UserProfile
 from products.models import Product
 from orders.models import Order
 from cart.forms import CartUpdateProductForm
+
+from .forms import LoginForm, UserForm, UserProfileForm, PasswordChangeCustomForm
+from .models import UserProfile
 
 
 class RegisterView(View):
@@ -62,6 +63,13 @@ class LoginView(View):
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
+        if '@' in username:
+            try:
+                username = User.objects.get(email=username)
+            except:
+                pass
+        
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:

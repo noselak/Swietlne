@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %} 
 {% load staticfiles %}
+{% load mathfilters %}
 
 <div id="content">
     <div class="container">
@@ -23,11 +24,7 @@
                     <div class="col-sm-12 col-md-4 products-showing">
                         Pokazuje
                         <strong>
-                            {% if products.has_next %}
-                                {{num_filter}}
-                            {% else %}
-                                {{display_count}}
-                            {% endif %}
+                            {{ products.end_index|addition:1|sub:products.start_index }}
                         </strong> z <strong>{{products_all|length}}</strong> produktów
                     </div>
 

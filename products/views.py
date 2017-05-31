@@ -25,8 +25,6 @@ class CategoryView(View):
         paginator = Paginator(products, num_filter)
         page = request.GET.get('page')
         
-        display_count = category.products_count - ((paginator.num_pages-1) * int(num_filter))
-        
         try:
             products = paginator.page(page)
         except PageNotAnInteger:
@@ -41,7 +39,6 @@ class CategoryView(View):
             'category': category,
             'sort_by': sort_by,
             'num_filter': num_filter,
-            'display_count': display_count,
             'cart_form': cart_form
         }
         return render(request, self.template, context)
@@ -68,7 +65,6 @@ class ProductView(View):
         return render(request, self.template, context)
         
     def post(self, request, pk):
-        product = Product.active_objects.get(pk=pk)
         comment_create_form = CommentCreateForm(request.POST)
         print(comment_create_form)
         
@@ -110,12 +106,11 @@ class SearchView(View):
                                                         Q(description__icontains=query)
                                                         ).distinct()
         else:
-            # display only new product if there's no query
+            # display only most populars products if there's no query
             products_all = Product.active_objects.filter(best_buy=True)
 
         paginator = Paginator(products_all, num_filter)
         page = request.GET.get('page')    
-        display_count = products_all.count() - ((paginator.num_pages-1) * int(num_filter))
 
         try:
             products = paginator.page(page)
@@ -130,7 +125,6 @@ class SearchView(View):
             'products_all': products_all,
             'sort_by': sort_by,
             'num_filter': num_filter,
-            'display_count': display_count,
             'cart_form': cart_form
         }
         return render(request, self.template, context)

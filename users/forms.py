@@ -30,6 +30,13 @@ class UserForm(UserCreationForm):
     email = forms.CharField(label="E-mail", max_length=30, 
                                widget=forms.TextInput(attrs=
                                {'class': 'form-control', 'name': 'email'}))
+                               
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            raise forms.ValidationError(u'Na ten e-mail już założono konto')
+        return email
         
 class UserProfileForm(forms.ModelForm):
     
