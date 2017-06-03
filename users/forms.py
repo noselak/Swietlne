@@ -8,11 +8,17 @@ class LoginForm(forms.Form):
     username = forms.CharField(label="Nazwa użytkownika", max_length=30, 
                                widget=forms.TextInput(attrs=
                                {'class': 'form-control', 'name': 'username'}))
-    password = forms.CharField(label="Hasło", max_length=30, 
-                               widget=forms.TextInput(attrs=
-                               {'class': 'form-control', 'name': 'password', 'type': 'password'}))
-                               
-                               
+    password = forms.CharField(
+                               label="Hasło", 
+                               max_length=30, 
+                               widget=forms.TextInput(attrs={
+                                        'class': 'form-control',
+                                        'name': 'password',
+                                        'type': 'password'
+                                        })
+                               )
+
+
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)

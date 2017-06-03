@@ -5,9 +5,11 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 
+from products.models import Category, Product
+
 from. models import Join, Faq
 from .forms import JoinForm, ContactForm
-from products.models import Category, Product
+
 
 class HomeView(View):
     form = JoinForm
@@ -78,6 +80,20 @@ class ContactView(View):
             'contact_form': contact_form
         }
         return render(request, self.template, context)
+
+
+class AboutView(View):
+    def get(self, request):
+        template = 'news/about.html'
+        context = {}
+        return render(request, template, context)
+        
+        
+class CustomOrdersView(View):
+    def get(self, request):
+        template = 'news/custom-orders.html'
+        context = {}
+        return render(request, template, context)
 
 
 class NotFoundView(View):

@@ -31,7 +31,11 @@
                     <div class="col-sm-12 col-md-3 products-showing">
                         Pokazuje
                         <strong>
+                            {% if products %}
                             {{ products.end_index|addition:1|sub:products.start_index }}
+                            {% else %}
+                            0
+                            {% endif %}
                         </strong> z <strong>{{category.products_count}}</strong> produktów
                     </div>
 

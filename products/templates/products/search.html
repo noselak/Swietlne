@@ -24,7 +24,11 @@
                     <div class="col-sm-12 col-md-4 products-showing">
                         Pokazuje
                         <strong>
+                            {% if products %}
                             {{ products.end_index|addition:1|sub:products.start_index }}
+                            {% else %}
+                            0
+                            {% endif %}
                         </strong> z <strong>{{products_all|length}}</strong> produktów
                     </div>
 

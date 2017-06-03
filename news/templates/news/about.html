@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block head_title %}O nas{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>O nas</li>
+            </ul>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="box" id="text-page">
+                <h1>O nas</h1>
+
+                <p class="lead">Wszędobylskie „made in china”, krótkie „życie” produktu, nijakość. To wszystko zmotywowało nas do tego by działać. 
+                By stworzyć produkty <strong>„made in poland”</strong>, które posłużą latami. Naszym klientom postanowiliśmy podarować wyjątkowe produkty. 
+                Zapraszamy do naszego <strong><a href="{% url 'products:category_view' category_slug='bluzy' %}">świetlnego sklepu</a></strong>.
+                </p>
+
+                <h2>Oto ja.</h2>
+
+                <blockquote>
+                    <p>Siena. To ja projektuje, szyje i doprecyzowuje każdą rzecz, jaką Państwu proponujemy. </p>
+                </blockquote>
+                
+                <p>Staram się tworzyć rzeczy unikatowe. 
+                    Największą inspiracją i zachętą do dalszego działania jest dla mnie zadowolenie każdej osoby, która wybiera #świetlne produkty. 
+                </p>
+                <img class="img-responsive" src="{% static 'news/img/slider1.jpg' %}">
+                <hr>
+                <p>
+                    Pomimo kilkunastoletniego doświadczenia (tak, nie mam już nastu lat) nieustannie doskonale swój warsztat i umiejętności w rzemiośle nitki i igły. Codzień szukam nowych inspiracji by zrealizować siebie…
+                </p>
+
+            </div>
+
+
+        </div>
+        <!-- /.col-md-9 -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}

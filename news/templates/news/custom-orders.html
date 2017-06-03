@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block head_title %}O nas{% endblock %} {% block content %} {% load staticfiles %}
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'news:home' %}">Strona domowa</a>
+                </li>
+                <li>Zamówienia indywidualne</li>
+            </ul>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="box" id="text-page">
+                <h1>Zamowienia indywidualne</h1>
+
+                <p class="lead">Chcesz mieć własne oryginalne i niepowtarzalne etui na książkę, plecak, bluzę? Szukasz prezentu dla wyjątkowej osoby? Chcesz wywołać uśmiech na twarzy swojej Mamy, uroczej sąsiadki, szalonego przyjaciela?</p>
+                
+                <blockquote>
+                <p>Jeśli odpowiedź brzmi: <strong>TAK</strong>, to dobrze trafiłeś! To właśnie tu tworzymy unikatowe rzeczy dla wyjątkowych ludzi. 
+                <a href="{% url 'news:contact' %}">Opisz nam krótko swoje oczekiwania</a>, a razem na pewno stworzymy coś niezwykłego! Po uszyciu dostaniesz zdjęcia realizacji do ostatecznej akceptacji, tak abyś był usatysfakcjonowany. Pisz śmiało!
+                </p>
+                </blockquote>
+                
+                <img class="img-responsive" src="{% static 'news/img/slider2.jpg' %}">
+                
+                <hr>
+                
+                <h3>Dodatkowe informacje</h3>
+
+                <ol>
+                    <li>Termin realizacji zamówienia: według indywidualnych ustaleń. </li>
+                    <li>Przedmioty wykonane na zamówienie indywidualne nie podlegają zwrotom!</li>
+                </ol>
+                
+                <hr>
+                
+                <h3>Materiały</h3>
+                
+                <p>Paski, kratka, materiały jednolite. Poniżej znajdziesz przegląd niektórych tkanin, jakie możemy Tobie zaoferować.</p>
+
+            </div>
+
+
+        </div>
+        <!-- /.col-md-9 -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+{% endblock %}
