@@ -5,8 +5,9 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import validate_email
+from django.contrib.auth.models import User
 
 from products.models import Product
 from orders.models import Order
@@ -64,11 +65,12 @@ class LoginView(View):
         username = request.POST.get('username')
         password = request.POST.get('password')
         
-        if '@' in username:
-            try:
-                username = User.objects.get(email=username)
-            except:
-                pass
+        # logging via e-mail address
+        try:
+            validate_email(username)
+            username = User.objects.get(email=username)
+        except:
+            pass
         
         user = authenticate(username=username, password=password)
         if user is not None:

@@ -9,7 +9,7 @@ class ImageInline(admin.TabularInline):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["__str__", "price", "active"]
-    inlines = (ImageInline,)
+    inlines = [ImageInline]
     
     class Meta:
         model = Product

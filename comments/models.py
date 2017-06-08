@@ -15,6 +15,8 @@ class Comment(models.Model):
     
     class Meta:
         ordering = ['-timestamp']
+        verbose_name = 'Komentarz'
+        verbose_name_plural = 'Komentarze'
         
     def __str__(self):
         return self.comment_username + ": " + self.comment_body

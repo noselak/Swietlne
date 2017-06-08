@@ -129,16 +129,16 @@
 
                 <ul class="pagination">
                     {% if products.has_previous %}
-                    <li><a href="?{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{products.previous_page_number}}">&laquo;</a> {% endif %}
+                    <li><a href="?page={{products.previous_page_number}}">&laquo;</a> {% endif %}
                     </li>
                     {% for pag in products.paginator.page_range %} {% if products.number == pag %}
                     <li class="active"><a href="#">{{ products.number }}</a>
                     </li>
                     {% else %}
-                    <li><a href="?{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{pag}}">{{ pag }}</a>
+                    <li><a href="?page={{pag}}">{{ pag }}</a>
                     </li>
                     {% endif %} {% endfor %} {% if products.has_next %}
-                    <li><a href="?{% if request.GET.num %}num={{request.GET.num}}&{% endif %}{% if request.GET.sort_by %}sort_by={{request.GET.sort_by}}&{% endif %}page={{products.next_page_number}}">&raquo;</a>
+                    <li><a href="?page={{products.next_page_number}}">&raquo;</a>
                     </li>
                     {% endif %}
                 </ul>

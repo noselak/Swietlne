@@ -18,8 +18,16 @@ class CategoryView(View):
     def get(self, request, category_slug):
         category = Category.objects.get(slug=category_slug)
         products = Product.active_objects.filter(categories=category)
-        num_filter = request.GET.get('num') or 9
-        sort_by = request.GET.get('sort_by') or 'title'
+        
+        try:
+            request.session['num_filter'] = request.GET['num']
+            request.session['sort_by'] = request.GET['sort_by']
+        except:
+            pass
+        
+        num_filter = request.session.get('num_filter') or 9
+        sort_by = request.session.get('sort_by') or 'title'
+        
         cart_form = CartUpdateProductForm()
         
         paginator = Paginator(products, num_filter)
@@ -97,8 +105,16 @@ class SearchView(View):
 
     def get(self, request):
         query = request.GET.get('q')
-        num_filter = request.GET.get('num') or 9
-        sort_by = request.GET.get('sort_by') or 'title'
+        
+        try:
+            request.session['num_filter'] = request.GET['num']
+            request.session['sort_by'] = request.GET['sort_by']
+        except:
+            pass
+        
+        num_filter = request.session.get('num_filter') or 9
+        sort_by = request.session.get('sort_by') or 'title'
+        
         cart_form = CartUpdateProductForm()
         if query:
             products_all = Product.active_objects.filter(
