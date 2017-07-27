@@ -82,6 +82,7 @@ class ContactView(View):
         return render(request, self.template, context)
 
 
+#flat views
 class AboutView(View):
     def get(self, request):
         template = 'news/about.html'

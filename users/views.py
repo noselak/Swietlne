@@ -35,7 +35,9 @@ class RegisterView(View):
         if user_form.is_valid() and user_profile_form.is_valid():
             username = user_form.cleaned_data['username']
             password = user_form.cleaned_data['password1']
+            email = user_form.cleaned_data['email']
             user = user_form.save(commit=False)
+            user.email = email
             user.set_password(password)
             user.save()
             user_profile = user_profile_form.save(commit=False)

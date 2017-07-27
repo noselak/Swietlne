@@ -5,7 +5,7 @@ from django import forms
 from .models import UserProfile
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label="Nazwa użytkownika", max_length=30, 
+    username = forms.CharField(label="Nazwa użytkownika / E-mail", max_length=30, 
                                widget=forms.TextInput(attrs=
                                {'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(
@@ -33,7 +33,7 @@ class UserForm(UserCreationForm):
     password2 = forms.CharField(label="Potwierdź hasło", max_length=30, 
                                widget=forms.TextInput(attrs=
                                {'class': 'form-control', 'name': 'password2', 'type': 'password'}))
-    email = forms.CharField(label="E-mail", max_length=30, 
+    email = forms.EmailField(label="E-mail", max_length=30, 
                                widget=forms.TextInput(attrs=
                                {'class': 'form-control', 'name': 'email'}))
                                
@@ -43,6 +43,7 @@ class UserForm(UserCreationForm):
         if email and User.objects.filter(email=email).exclude(username=username).exists():
             raise forms.ValidationError(u'Na ten e-mail już założono konto')
         return email
+
         
 class UserProfileForm(forms.ModelForm):
     
